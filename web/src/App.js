@@ -1,6 +1,7 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import React from "react";
+import { Header } from "./components/Header.js";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 
@@ -19,6 +20,7 @@ const App = () => {
 
       return (
       <div className="App">
+        <Header />
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
