@@ -9,7 +9,7 @@ const events = [
   {
     start: moment().toDate(),
     end: moment()
-      .add(1, "days")
+      .add(2, "days")
       .toDate(),
     title: "Some title"
   }
