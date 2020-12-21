@@ -214,7 +214,7 @@ export const eventsAnahasanaVillage = [
 export const events = [
   {
     start: new Date(2021, 7, 30, 20, 0, 0),
-    end: new Date(2021, 7, 30, 23, 59, 59),
+    end: new Date(2021, 7, 31, 2, 0, 0),
     title: "Emergence: 3907's Birth Day Party",
   },
   {

@@ -33,6 +33,7 @@ function App() {
         selectable
         onSelectEvent={(event) => alert(event.title)}
         onSelectSlot={handleSelect}
+        showMultiDayTimes
       />
     </div>
   );
