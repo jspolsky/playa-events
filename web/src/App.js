@@ -33,7 +33,17 @@ function App() {
     }
   };
 
+  function isValidDate(d) {
+    return d instanceof Date && !isNaN(d);
+  }
+
   const moveEvent = ({ event, start, end, isAllDay }) => {
+    if (!isValidDate(start) || !isValidDate(end)) {
+      // the resizing code corrupts the new start date when events cross midnight
+      // https://github.com/jquense/react-big-calendar/issues/1598
+      return;
+    }
+
     setEvents(
       events.map((i) => {
         return i.id === event.id ? { ...i, start, end, allDay: !!isAllDay } : i;

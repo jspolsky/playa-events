@@ -244,7 +244,7 @@ export const events = [
   },
   {
     start: new Date(2021, 8, 2, 21, 0, 0),
-    end: new Date(2021, 8, 2, 0, 0, 0),
+    end: new Date(2021, 8, 3, 0, 0, 0),
     title: "Funky Drunky Groove Party",
   },
   {
