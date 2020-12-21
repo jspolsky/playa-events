@@ -1,4 +1,4 @@
-export const events = [
+export const eventsAnahasanaVillage = [
   {
     start: new Date(2021, 7, 29, 18, 0, 0, 0),
     end: new Date(2021, 7, 29, 19, 30, 0, 0),
@@ -208,5 +208,118 @@ export const events = [
     start: new Date(2021, 8, 4, 10, 30, 0),
     end: new Date(2021, 8, 4, 12, 0, 0),
     title: "Morning Ecstatic Dance",
+  },
+];
+
+export const events = [
+  {
+    start: new Date(2021, 7, 30, 20, 0, 0),
+    end: new Date(2021, 7, 30, 23, 59, 59),
+    title: "Emergence: 3907's Birth Day Party",
+  },
+  {
+    start: new Date(2021, 7, 31, 14, 0, 0),
+    end: new Date(2021, 7, 31, 16, 0, 0),
+    title: "T Shirt printing",
+  },
+  {
+    start: new Date(2021, 7, 31, 18, 0, 0),
+    end: new Date(2021, 7, 31, 19, 0, 0),
+    title: "Elevate the Latino within",
+  },
+  {
+    start: new Date(2021, 8, 1, 14, 0, 0),
+    end: new Date(2021, 8, 1, 15, 0, 0),
+    title: "Tune in to Touch",
+  },
+  {
+    start: new Date(2021, 8, 1, 16, 0, 0),
+    end: new Date(2021, 8, 1, 17, 0, 0),
+    title: "T shirt shredding design and cutting.",
+  },
+  {
+    start: new Date(2021, 8, 2, 6, 0, 0),
+    end: new Date(2021, 8, 2, 7, 0, 0),
+    title: "Bacon Bloody Sunrise",
+  },
+  {
+    start: new Date(2021, 8, 2, 21, 0, 0),
+    end: new Date(2021, 8, 2, 0, 0, 0),
+    title: "Funky Drunky Groove Party",
+  },
+  {
+    start: new Date(2021, 8, 2, 14, 0, 0),
+    end: new Date(2021, 8, 2, 15, 0, 0),
+    title: "PolyJAMorous Music Theory Class",
+  },
+  {
+    start: new Date(2021, 8, 4, 14, 0, 0),
+    end: new Date(2021, 8, 4, 15, 0, 0),
+    title: "PolyJAMorous Music Theory Class",
+  },
+  {
+    start: new Date(2021, 7, 30, 18, 0, 0),
+    end: new Date(2021, 7, 30, 19, 30, 0),
+    title: "Sunset Jam Sesh",
+  },
+  {
+    start: new Date(2021, 7, 31, 18, 0, 0),
+    end: new Date(2021, 7, 31, 19, 30, 0),
+    title: "Sunset Jam Sesh",
+  },
+  {
+    start: new Date(2021, 8, 1, 18, 0, 0),
+    end: new Date(2021, 8, 1, 19, 30, 0),
+    title: "Sunset Jam Sesh",
+  },
+  {
+    start: new Date(2021, 8, 2, 18, 0, 0),
+    end: new Date(2021, 8, 2, 19, 30, 0),
+    title: "Sunset Jam Sesh",
+  },
+  {
+    start: new Date(2021, 8, 3, 18, 0, 0),
+    end: new Date(2021, 8, 3, 19, 30, 0),
+    title: "Sunset Jam Sesh",
+  },
+  {
+    start: new Date(2021, 8, 4, 18, 0, 0),
+    end: new Date(2021, 8, 4, 19, 30, 0),
+    title: "Sunset Jam Sesh",
+  },
+  {
+    start: new Date(2021, 7, 30, 12, 0, 0),
+    end: new Date(2021, 7, 30, 16, 0, 0),
+    title: "Black Rock City Summit Photo Opp",
+  },
+  {
+    start: new Date(2021, 7, 31, 12, 0, 0),
+    end: new Date(2021, 7, 31, 16, 0, 0),
+    title: "Black Rock City Summit Photo Opp",
+  },
+  {
+    start: new Date(2021, 8, 1, 12, 0, 0),
+    end: new Date(2021, 8, 1, 16, 0, 0),
+    title: "Black Rock City Summit Photo Opp",
+  },
+  {
+    start: new Date(2021, 8, 2, 12, 0, 0),
+    end: new Date(2021, 8, 2, 16, 0, 0),
+    title: "Black Rock City Summit Photo Opp",
+  },
+  {
+    start: new Date(2021, 8, 3, 12, 0, 0),
+    end: new Date(2021, 8, 3, 16, 0, 0),
+    title: "Black Rock City Summit Photo Opp",
+  },
+  {
+    start: new Date(2021, 8, 4, 12, 0, 0),
+    end: new Date(2021, 8, 4, 16, 0, 0),
+    title: "Black Rock City Summit Photo Opp",
+  },
+  {
+    start: new Date(2021, 8, 5, 12, 0, 0),
+    end: new Date(2021, 8, 5, 16, 0, 0),
+    title: "Black Rock City Summit Photo Opp",
   },
 ];
