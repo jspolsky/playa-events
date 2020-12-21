@@ -7,6 +7,8 @@ import { BurnWeek } from "./components/BurnWeek.js";
 import { dateRangeFormat } from "react-big-calendar/lib/utils/propTypes";
 import { events } from "./sampleEvents";
 
+// Playaevents!
+
 const localizer = momentLocalizer(moment);
 function App() {
   const [firstDay, lastDay] = burningManDates(yearDefault());
