@@ -25,6 +25,7 @@ const App = () => {
           defaultView="week"
           events={events}
           style={{ height: "100vh" }}
+          
         />
       </div>
     );
