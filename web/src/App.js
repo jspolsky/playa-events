@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Header } from "./components/Header.js";
 
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.scss";
+
+import { Header } from "./components/Header.js";
 
 import moment from "moment";
+
 import { burningManDates, yearDefault } from "./dateFunctions.js";
 import { BurnWeek } from "./components/BurnWeek.js";
 import { events as initialEvents } from "./sampleEvents";
-import "react-big-calendar/lib/addons/dragAndDrop/styles.scss";
+import { EventDialog } from "./components/EventDialog";
 
 // Playa Events!
 
@@ -24,13 +27,24 @@ const eventsWithIDs = initialEvents.map((x) => {
 
 function App() {
   const [events, setEvents] = useState(eventsWithIDs);
-  const [firstDay, lastDay] = burningManDates(yearDefault());
+  const [showPopup, setShowPopup] = useState(false);
+  const [eventForPopup, setEventForPopup] = useState({});
+  const [firstDay] = burningManDates(yearDefault());
 
-  const handleSelect = ({ start, end }) => {
+  const newEventFromGrid = ({ start, end }) => {
     const title = window.prompt("New Event name");
     if (title) {
       setEvents([...events, { start, end, title, id: identity++ }]);
     }
+  };
+
+  const drillDown = (event) => {
+    setEventForPopup(event);
+    setShowPopup(true);
+  };
+
+  const closeDrillDown = () => {
+    setShowPopup(false);
   };
 
   function isValidDate(d) {
@@ -54,6 +68,11 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <EventDialog
+        show={showPopup}
+        close={closeDrillDown}
+        event={eventForPopup}
+      />
       <DraggableCalendar
         localizer={localizer}
         defaultDate={firstDay}
@@ -62,8 +81,8 @@ function App() {
         style={{ height: "100vh" }}
         views={{ agenda: true, week: BurnWeek }}
         selectable
-        onSelectEvent={(event) => alert(event.title)}
-        onSelectSlot={handleSelect}
+        onSelectEvent={drillDown}
+        onSelectSlot={newEventFromGrid}
         showMultiDayTimes
         onEventDrop={moveEvent}
         onEventResize={moveEvent}
