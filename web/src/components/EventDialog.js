@@ -6,7 +6,7 @@ import ModalDialog from "react-bootstrap/ModalDialog";
 
 import editButton from "../assets/edit.svg";
 import deleteButton from "../assets/delete.svg";
-import xButton from "../assets/close.svg";
+import closeButton from "../assets/close.svg";
 
 const DraggableModalDialog = (props) => {
   return (
@@ -31,7 +31,7 @@ export const EventDialog = (props) => {
         <div style={{ marginLeft: "auto" }}>
           <Image src={editButton} />
           <Image src={deleteButton} />
-          <Image src={xButton} />
+          <Image src={closeButton} />
         </div>
       </Modal.Header>
       <Modal.Body>
