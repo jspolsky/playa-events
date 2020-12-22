@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import Draggable from "react-draggable";
 import ModalDialog from "react-bootstrap/ModalDialog";
+import moment from "moment";
 
 import editButton from "../assets/edit.svg";
 import deleteButton from "../assets/delete.svg";
@@ -35,16 +36,18 @@ export const EventDialog = (props) => {
         </div>
       </Modal.Header>
       <Modal.Body>
-        This is the body of the modal <br />
-        it is where all the lovely editing takes place. It can be in "static" or
-        "editable" mode. You have to hit the edit button to get into editable
-        mode, unless this is a new event. I would love for this to be draggable.
+        <strong>
+          {moment(props.event.start).format("dddd MMM D")}
+          <br />
+          {moment(props.event.start).format("h:mma")}
+          &ndash;
+          {moment(props.event.end).format("h:mma")}
+        </strong>
+        <br></br>
+        <br></br>
+        {props.event.description}
       </Modal.Body>
-      <Modal.Footer>
-        {" "}
-        This is the footer of the modal. When you are in Edit mode, a Save
-        button appears here.
-      </Modal.Footer>
+      <Modal.Footer>Save</Modal.Footer>
     </Modal>
   );
 };
