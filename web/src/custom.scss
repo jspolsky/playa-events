@@ -9,8 +9,13 @@
 
 .modal-header img {
   width: 2.5rem;
-  background-color: lightgrey;
+  background-color: rgb(224, 224, 224);
   border-radius: 4rem;
   padding: 7px;
   margin-left: 1rem;
+}
+
+.modal-header img:hover {
+  background-color: rgb(71, 238, 230);
+  cursor: pointer;
 }

@@ -3,6 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import Draggable from "react-draggable";
 import ModalDialog from "react-bootstrap/ModalDialog";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import moment from "moment";
 
 import editButton from "../assets/edit.svg";
@@ -14,6 +16,18 @@ const DraggableModalDialog = (props) => {
     <Draggable handle=".modal-header">
       <ModalDialog {...props} />
     </Draggable>
+  );
+};
+
+export const WeeButton = (props) => {
+  return (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip>{props.name}</Tooltip>}
+      delay={{ show: 250, hide: 400 }}
+    >
+      <Image src={props.button} onClick={props.onClick} />
+    </OverlayTrigger>
   );
 };
 
@@ -30,9 +44,9 @@ export const EventDialog = (props) => {
       <Modal.Header>
         <Modal.Title>{props.event.title}</Modal.Title>
         <div style={{ marginLeft: "auto" }}>
-          <Image src={editButton} />
-          <Image src={deleteButton} />
-          <Image src={closeButton} />
+          <WeeButton name="Edit" button={editButton} />
+          <WeeButton name="Delete" button={deleteButton} />
+          <WeeButton name="Close" button={closeButton} onClick={props.close} />
         </div>
       </Modal.Header>
       <Modal.Body>
@@ -46,6 +60,11 @@ export const EventDialog = (props) => {
         <br></br>
         <br></br>
         {props.event.description}
+        <br></br>
+        <br></br>
+        <strong>Location:</strong> Christmas Camp
+        <br />
+        <i>(camp address to be provided by Placement)</i>
       </Modal.Body>
       <Modal.Footer>Save</Modal.Footer>
     </Modal>
