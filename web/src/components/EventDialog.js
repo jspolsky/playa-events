@@ -11,6 +11,22 @@ import editButton from "../assets/edit.svg";
 import deleteButton from "../assets/delete.svg";
 import closeButton from "../assets/close.svg";
 
+//
+// 2019 event types were:
+//
+// Gathering/Party prty 🥳
+// Adult-oriented adlt 🔞
+// Care/Support care 🖐
+// Fire fire 🔥
+// Food food 🍽
+// Game game 🎲
+// Kid-friendly kid 🧸
+// Other othr 
+// Parade para 🤸‍♀️
+// Performance perf 🎭
+// Class/Workshop work 🧑‍🏫
+//
+
 const DraggableModalDialog = (props) => {
   return (
     <Draggable handle=".modal-header">
@@ -64,7 +80,10 @@ export const EventDialog = (props) => {
         <br></br>
         <strong>Location:</strong> Christmas Camp
         <br />
-        <i>(camp address to be provided by Placement)</i>
+        <i>(camp address will be provided by Placement)</i>
+        <br />
+        <br />
+        <span style={{fontSize:"2.2rem"}}>🤸‍♀️ 🍽 🔞</span>
       </Modal.Body>
       <Modal.Footer>Save</Modal.Footer>
     </Modal>
