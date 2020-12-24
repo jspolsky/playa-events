@@ -364,4 +364,16 @@ export const events = [
     description:
       "Congratulations!  You made it all the way to the summit of Black Rock City at 3907 feet above sea level.  Mark this amazing accomplishment by stopping by and having your photo taken (or take your own) with the summit as your backdrop.  Photos taken by 3907 will be available after the burn on our facebook page.",
   },
+  {
+    start: new Date(2021, 8, 4, 21, 0, 0, 0),
+    end: new Date(2021, 8, 4, 23, 30, 0, 0),
+    title: "Man Burn",
+    global: true,
+  },
+  {
+    start: new Date(2021, 8, 5, 18, 0, 0, 0),
+    end: new Date(2021, 8, 5, 21, 30, 0, 0),
+    title: "Temple Burn",
+    global: true,
+  }
 ];

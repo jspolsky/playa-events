@@ -58,11 +58,28 @@ function App() {
       return;
     }
 
+    if (event.global) {
+      // are you trying to change the time of the man burn? good luck with that buddy
+      return;
+    }
+
     setEvents(
       events.map((i) => {
         return i.id === event.id ? { ...i, start, end, allDay: !!isAllDay } : i;
       })
     );
+  };
+
+  const formatEvent = (event, start, end, isSelected) => {
+    if (event.global)
+      return {
+        // note: you could be setting className instead of style here and that would be probably better
+        style: {
+          backgroundColor: isSelected ? "tan" : "cornsilk",
+          color: "black",
+        },
+      };
+    return {};
   };
 
   return (
@@ -86,6 +103,7 @@ function App() {
         showMultiDayTimes
         onEventDrop={moveEvent}
         onEventResize={moveEvent}
+        eventPropGetter={formatEvent}
       />
     </div>
   );
