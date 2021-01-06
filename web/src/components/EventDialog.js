@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import Draggable from "react-draggable";
@@ -38,53 +38,52 @@ const DraggableModalDialog = (props) => {
   );
 };
 
-const WeeButton = (props) => {
+const WeeButton = ({ name, button, onClick }) => {
   return (
     <OverlayTrigger
       placement="bottom"
-      overlay={<Tooltip>{props.name}</Tooltip>}
+      overlay={<Tooltip>{name}</Tooltip>}
       delay={{ show: 250, hide: 400 }}
     >
-      <Image src={props.button} onClick={props.onClick} />
+      <Image src={button} onClick={onClick} />
     </OverlayTrigger>
   );
 };
 
-const EventDialogHeader = (props) => {
-  return props.editing ? (
+const EventDialogHeader = ({ editing, setEditing, event, close }) => {
+  return editing ? (
     <Modal.Header>
-      <Modal.Title>{props.event.title}</Modal.Title>
+      <Modal.Title>{event.title}</Modal.Title>
       <div style={{ marginLeft: "auto" }}>
         <WeeButton
           name="Close"
           button={closeButton}
           onClick={() => {
-            props.setEditing(false);
-            props.close();
+            close();
           }}
         />
       </div>
     </Modal.Header>
   ) : (
     <Modal.Header>
-      <Modal.Title>{props.event.title}</Modal.Title>
+      <Modal.Title>{event.title}</Modal.Title>
       <div style={{ marginLeft: "auto" }}>
         <WeeButton
           name="Edit"
           button={editButton}
           onClick={() => {
-            props.setEditing(true);
+            setEditing(true);
           }}
         />
         <WeeButton name="Delete" button={deleteButton} />
-        <WeeButton name="Close" button={closeButton} onClick={props.close} />
+        <WeeButton name="Close" button={closeButton} onClick={close} />
       </div>
     </Modal.Header>
   );
 };
 
-const EventDialogBody = (props) => {
-  return props.editing ? (
+const EventDialogBody = ({ editing, event }) => {
+  return editing ? (
     <Modal.Body>
       <Form.Group>
         <Form.Label>Event name</Form.Label>
@@ -143,15 +142,15 @@ const EventDialogBody = (props) => {
   ) : (
     <Modal.Body>
       <strong>
-        {moment(props.event.start).format("dddd MMM D")}
+        {moment(event.start).format("dddd MMM D")}
         <br />
-        {moment(props.event.start).format("h:mma")}
+        {moment(event.start).format("h:mma")}
         &ndash;
-        {moment(props.event.end).format("h:mma")}
+        {moment(event.end).format("h:mma")}
       </strong>
       <br></br>
       <br></br>
-      {props.event.description}
+      {event.description}
       <br></br>
       <br></br>
       <strong>Location:</strong> Christmas Camp
@@ -164,27 +163,47 @@ const EventDialogBody = (props) => {
   );
 };
 
-export const EventDialog = (props) => {
+const EventDialogFooter = ({ editing }) => {
+  if (editing) {
+    return <Modal.Footer>Save</Modal.Footer>;
+  } else {
+    return <div />;
+  }
+};
+
+export const EventDialog = ({ show, close, event }) => {
   const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    if (show) {
+      // dialog just appeared
+    } else {
+      // dialog just disappeared
+      setEditing(false);
+    }
+  }, [show]);
+
+  const handleClose = (event) => {
+    close();
+  };
 
   return (
     <Modal
       animation={false}
       dialogAs={DraggableModalDialog}
-      show={props.show}
-      onHide={props.close}
+      show={show}
+      onHide={handleClose}
       size="lg"
       centered
     >
       <EventDialogHeader
-        event={props.event}
-        close={props.close}
+        event={event}
+        close={handleClose}
         editing={editing}
         setEditing={setEditing}
       />
-      <EventDialogBody event={props.event} editing={editing} />
-
-      <Modal.Footer>Save</Modal.Footer>
+      <EventDialogBody event={event} editing={editing} />
+      <EventDialogFooter editing={editing} />
     </Modal>
   );
 };
