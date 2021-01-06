@@ -110,7 +110,7 @@ const EventDialogBody = (props) => {
               ))}
             </tr>
             <tr>
-              {[...Array(9).keys()].map((i) => (
+              {[...Array(9)].map((x, i) => (
                 <td className="text-center" key={`dow${i}`}>
                   <Form.Check
                     inline
