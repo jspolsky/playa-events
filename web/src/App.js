@@ -10,42 +10,89 @@ import moment from "moment";
 
 import { burningManDates, yearDefault } from "./dateFunctions.js";
 import { BurnWeek } from "./components/BurnWeek.js";
-import { events as initialEvents } from "./sampleEvents";
+import { initialRawEvents } from "./sampleEvents";
 import { EventDialog } from "./components/EventDialog";
 
 // Playa Events!
 
 const localizer = momentLocalizer(moment);
 const DraggableCalendar = withDragAndDrop(Calendar);
+const [firstDay] = burningManDates(yearDefault());
 
-// Give each event a unique identity so we can identify them
-// later in drag and drops
-var identity = 0;
-const eventsWithIDs = initialEvents.map((x) => {
-  return { ...x, id: identity++ };
+// At startup, assign each raw event an id that can be
+// used to find it later.
+//
+let identity = 0;
+initialRawEvents.forEach((e) => {
+  e.id = identity++;
 });
 
+// Convert rawEvents to calEvents
+//
+// rawEvents format looks like this:
+//
+// {
+//   start: { h: 20, m: 0 },
+//   end: { h: 2, m: 0 },
+//   days: [1,2,4],
+//   title: "Party",
+//   description:
+//     "Future Turtles Party",
+// }
+//
+// This function:
+//
+// - explodes multi-day events into several separate events (in the example above, there are three instances of the event)
+// - convert the start and end times to actual Dates
+//
+const CalEventsFromRawEvents = (rawEvents) => {
+  let calEvents = [];
+
+  rawEvents.forEach((e) => {
+    e.days.forEach((d) => {
+      calEvents.push({
+        start: moment(firstDay)
+          .add(d, "days")
+          .add(e.start.h, "hours")
+          .add(e.start.m, "minutes")
+          .toDate(),
+        end: moment(firstDay)
+          .add(d + (e.end.h < e.start.h ? 1 : 0), "days")
+          .add(e.end.h, "hours")
+          .add(e.end.m, "minutes")
+          .toDate(),
+        title: e.title,
+        id: e.id, // multiple calendar events may point to same raw event
+        global: e.global,
+      });
+    });
+  });
+
+  return calEvents;
+};
+
 function App() {
-  const [events, setEvents] = useState(eventsWithIDs);
+  const [rawEvents, setRawEvents] = useState(initialRawEvents);
   const [showPopup, setShowPopup] = useState(false);
   const [eventForPopup, setEventForPopup] = useState({});
-  const [firstDay] = burningManDates(yearDefault());
 
-  const newEventFromGrid = ({ start, end }) => {
-    const title = window.prompt("New Event name");
-    if (title) {
-      setEvents([...events, { start, end, title, id: identity++ }]);
-    }
-  };
+  // TODO - this cheezy use of "window.prompt" will ultimately be
+  // replaced by creating a new event and then showing the popup.
+  // const newEventFromGrid = ({ start, end }) => {
+  //   const title = window.prompt("New Event name");
+  //   if (title) {
+  //     setEvents([...events, { start, end, title, id: identity++ }]);
+  //   }
+  // };
 
-  const drillDown = (event) => {
-    setEventForPopup(event);
-    setShowPopup(true);
-  };
+  // const drillDown = (event) => {
+  //   setEventForPopup(event);
+  //   setShowPopup(true);
+  // };
 
-  const closeDrillDown = () => {
-    setShowPopup(false);
-  };
+  // const closeDrillDown = () => {
+  //   setShowPopup(false);
+  // };
 
   function isValidDate(d) {
     return d instanceof Date && !isNaN(d);
@@ -63,9 +110,24 @@ function App() {
       return;
     }
 
-    setEvents(
-      events.map((i) => {
-        return i.id === event.id ? { ...i, start, end, allDay: !!isAllDay } : i;
+    setRawEvents(
+      rawEvents.map((e) => {
+        if (e.id === event.id) {
+          let newDays = e.days;
+
+          if (newDays.length === 1) {
+            newDays[0] = moment(start).diff(moment(firstDay), "days");
+          }
+
+          return {
+            ...e,
+            start: { h: start.getHours(), m: start.getMinutes() },
+            end: { h: end.getHours(), m: end.getMinutes() },
+            days: newDays,
+          };
+        } else {
+          return e;
+        }
       })
     );
   };
@@ -85,21 +147,21 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <EventDialog
+      {/* <EventDialog
         show={showPopup}
         close={closeDrillDown}
         event={eventForPopup}
-      />
+      /> */}
       <DraggableCalendar
         localizer={localizer}
         defaultDate={firstDay}
         defaultView={Views.WEEK}
-        events={events}
+        events={CalEventsFromRawEvents(rawEvents)}
         style={{ height: "100vh" }}
         views={{ agenda: true, week: BurnWeek }}
         selectable
-        onSelectEvent={drillDown}
-        onSelectSlot={newEventFromGrid}
+        //        onSelectEvent={drillDown}
+        //        onSelectSlot={newEventFromGrid}
         showMultiDayTimes
         onEventDrop={moveEvent}
         onEventResize={moveEvent}
