@@ -89,10 +89,6 @@ const EventDialogBody = ({
   setTitle,
   description,
   setDescription,
-  startTime,
-  setStartTime,
-  endTime,
-  setEndTime,
 }) => {
   return editing ? (
     <Modal.Body>
@@ -142,7 +138,7 @@ const EventDialogBody = ({
         </Table>
 
         <br />
-        <Form.Row>
+        {/* <Form.Row>
           <Col>
             <Form.Label>Start Time</Form.Label>
             <Form.Control
@@ -163,7 +159,7 @@ const EventDialogBody = ({
               }}
             ></Form.Control>
           </Col>
-        </Form.Row>
+        </Form.Row> */}
 
         <br />
         <Form.Label>Description</Form.Label>
@@ -180,11 +176,7 @@ const EventDialogBody = ({
     </Modal.Body>
   ) : (
     <Modal.Body>
-      <strong>
-        {startTime}
-        &ndash;
-        {endTime}
-      </strong>
+      <strong>Time goes here //TODO</strong>
       <br></br>
       <br></br>
       {description}
@@ -212,8 +204,6 @@ export const EventDialog = ({ show, close, event }) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
 
   useEffect(() => {
     if (show) {
@@ -221,14 +211,9 @@ export const EventDialog = ({ show, close, event }) => {
       // pull out editable data from event
       setTitle(event.title);
       setDescription(event.description);
-      setStartTime(moment(event.start).format("HH:mm:ss"));
-      setEndTime(moment(event.end).format("HH:mm:ss"));
     } else {
       // dialog just disappeared
       setEditing(false);
-
-      console.log(startTime);
-      console.log(endTime);
     }
   }, [show, event]);
 
@@ -258,10 +243,6 @@ export const EventDialog = ({ show, close, event }) => {
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
-        startTime={startTime}
-        setStartTime={setStartTime}
-        endTime={endTime}
-        setEndTime={setEndTime}
         editing={editing}
       />
       <EventDialogFooter editing={editing} />

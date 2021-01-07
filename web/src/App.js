@@ -85,14 +85,14 @@ function App() {
   //   }
   // };
 
-  // const drillDown = (event) => {
-  //   setEventForPopup(event);
-  //   setShowPopup(true);
-  // };
+  const drillDown = (event) => {
+    setEventForPopup(rawEvents.find((e) => e.id === event.id));
+    setShowPopup(true);
+  };
 
-  // const closeDrillDown = () => {
-  //   setShowPopup(false);
-  // };
+  const closeDrillDown = () => {
+    setShowPopup(false);
+  };
 
   function isValidDate(d) {
     return d instanceof Date && !isNaN(d);
@@ -100,7 +100,7 @@ function App() {
 
   const moveEvent = ({ event, start, end, isAllDay }) => {
     if (!isValidDate(start) || !isValidDate(end)) {
-      // the resizing code corrupts the new start date when events cross midnight
+      // the resizing code can corrupt the new start date when events cross midnight
       // https://github.com/jquense/react-big-calendar/issues/1598
       return;
     }
@@ -115,6 +115,8 @@ function App() {
         if (e.id === event.id) {
           let newDays = e.days;
 
+          // only single-day events can be moved date-wise
+          // otherwise you gotta use the dialog
           if (newDays.length === 1) {
             newDays[0] = moment(start).diff(moment(firstDay), "days");
           }
@@ -147,11 +149,11 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <EventDialog
+      <EventDialog
         show={showPopup}
         close={closeDrillDown}
         event={eventForPopup}
-      /> */}
+      />
       <DraggableCalendar
         localizer={localizer}
         defaultDate={firstDay}
@@ -160,8 +162,8 @@ function App() {
         style={{ height: "100vh" }}
         views={{ agenda: true, week: BurnWeek }}
         selectable
-        //        onSelectEvent={drillDown}
-        //        onSelectSlot={newEventFromGrid}
+        onSelectEvent={drillDown}
+        //               onSelectSlot={newEventFromGrid}
         showMultiDayTimes
         onEventDrop={moveEvent}
         onEventResize={moveEvent}
