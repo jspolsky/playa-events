@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Col from "react-bootstrap/Col";
 import moment from "moment";
+import { burningManDates, yearDefault } from "../dateFunctions.js";
 
 import editButton from "../assets/edit.svg";
 import deleteButton from "../assets/delete.svg";
@@ -29,6 +30,8 @@ import closeButton from "../assets/close.svg";
 // Performance perf 🎭
 // Class/Workshop work 🧑‍🏫
 //
+
+const [firstDay] = burningManDates(yearDefault());
 
 const DraggableModalDialog = (props) => {
   return (
@@ -82,6 +85,73 @@ const EventDialogHeader = ({ editing, setEditing, event, close, title }) => {
   );
 };
 
+const EventDialogWhen = ({ editing, event }) => {
+  return editing ? (
+    <Table size="sm">
+      <tbody>
+        <tr>
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"].map(
+            (x, i) => (
+              <td className="text-center" key={`dow${i}`}>
+                {x}
+              </td>
+            )
+          )}
+        </tr>
+        <tr>
+          {[...Array(9)].map((x, i) => (
+            <td className="text-center" key={`dow${i}`}>
+              <Form.Check
+                inline
+                style={{ marginRight: 0 }}
+                type="checkbox"
+              ></Form.Check>
+            </td>
+          ))}
+        </tr>
+      </tbody>
+
+      {/* <Form.Row>
+          <Col>
+            <Form.Label>Start Time</Form.Label>
+            <Form.Control
+              type="time"
+              value={startTime}
+              onChange={(e) => {
+                setStartTime(e.target.value);
+              }}
+            ></Form.Control>
+          </Col>
+          <Col>
+            <Form.Label>End Time</Form.Label>
+            <Form.Control
+              type="time"
+              value={endTime}
+              onChange={(e) => {
+                setEndTime(e.target.value);
+              }}  
+            ></Form.Control>
+          </Col>
+        </Form.Row> */}
+    </Table>
+  ) : (
+    <div>
+      {event.days.map((d) => (
+        <>
+          {moment(firstDay).add(d, "days").format("ddd, MMM D")}
+          <br />
+        </>
+      ))}
+      <strong>
+        {moment({ hour: event.start.h, minute: event.start.m }).format("h:mma")}
+        &mdash;
+        {moment({ hour: event.end.h, minute: event.end.m }).format("h:mma")}
+      </strong>
+      <em>{event.end.h < event.start.h ? " next day" : ""}</em>
+    </div>
+  );
+};
+
 const EventDialogBody = ({
   editing,
   event,
@@ -104,62 +174,9 @@ const EventDialogBody = ({
           placeholder="Event name"
         />
         <br />
-        <Table size="sm">
-          <tbody>
-            <tr>
-              {[
-                "Sun",
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat",
-                "Sun",
-                "Mon",
-              ].map((x, i) => (
-                <td className="text-center" key={`dow${i}`}>
-                  {x}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              {[...Array(9)].map((x, i) => (
-                <td className="text-center" key={`dow${i}`}>
-                  <Form.Check
-                    inline
-                    style={{ marginRight: 0 }}
-                    type="checkbox"
-                  ></Form.Check>
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </Table>
+        <EventDialogWhen editing={editing} event={event} />
 
         <br />
-        {/* <Form.Row>
-          <Col>
-            <Form.Label>Start Time</Form.Label>
-            <Form.Control
-              type="time"
-              value={startTime}
-              onChange={(e) => {
-                setStartTime(e.target.value);
-              }}
-            ></Form.Control>
-          </Col>
-          <Col>
-            <Form.Label>End Time</Form.Label>
-            <Form.Control
-              type="time"
-              value={endTime}
-              onChange={(e) => {
-                setEndTime(e.target.value);
-              }}
-            ></Form.Control>
-          </Col>
-        </Form.Row> */}
 
         <br />
         <Form.Label>Description</Form.Label>
@@ -176,8 +193,7 @@ const EventDialogBody = ({
     </Modal.Body>
   ) : (
     <Modal.Body>
-      <strong>Time goes here //TODO</strong>
-      <br></br>
+      <EventDialogWhen editing={editing} event={event} />
       <br></br>
       {description}
       <br></br>
