@@ -9,6 +9,9 @@ import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Col from "react-bootstrap/Col";
 import moment from "moment";
+
+import { Button } from "@material-ui/core";
+
 import { burningManDates, yearDefault } from "../dateFunctions.js";
 
 import editButton from "../assets/edit.svg";
@@ -220,7 +223,9 @@ const EventDialogEditing = ({
           />
         </Form.Group>
       </Modal.Body>
-      <Modal.Footer>Save</Modal.Footer>
+      <Modal.Footer>
+        <Button color="primary">Save</Button>
+      </Modal.Footer>
     </>
   );
 };
