@@ -85,11 +85,10 @@ const WeeButton = ({ name, button, onClick }) => {
 const EventDialogWhen = ({ days, start, end }) => {
   return (
     <div>
-      {days.map((d) => (
-        <>
+      {days.map((d, ix) => (
+        <div key={`ix${ix}`}>
           {moment(firstDay).add(d, "days").format("ddd, MMM D")}
-          <br />
-        </>
+        </div>
       ))}
       <strong>
         {moment({ hour: start.h, minute: start.m }).format("h:mma")}
@@ -137,7 +136,7 @@ const EventDialogStatic = ({
     const { children, classes, onClose, ...other } = props;
     return (
       <DialogTitle className={classes.root} {...other}>
-        <Typography variant="h5">{children}</Typography>
+        {children}
 
         <IconButton
           aria-label="edit"
