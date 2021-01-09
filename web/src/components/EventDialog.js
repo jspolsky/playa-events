@@ -86,14 +86,13 @@ const EventDialogStatic = ({
   close,
   setEditing,
   show,
-  onHide,
 }) => {
   return (
     <Modal
       animation={false}
       dialogAs={DraggableModalDialog}
       show={show}
-      onHide={onHide}
+      onHide={close}
       size="lg"
       centered
     >
@@ -298,7 +297,6 @@ export const EventDialog = ({ show, close, event }) => {
         close={handleClose}
         setEditing={setEditing}
         show={show}
-        onHide={handleClose}
       />
     );
   }
