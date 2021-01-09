@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import Image from "react-bootstrap/Image";
 import Draggable from "react-draggable";
-import Modal from "react-bootstrap/Modal";
-import ModalDialog from "react-bootstrap/ModalDialog";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
 import Form from "react-bootstrap/Form";
 
 import Table from "react-bootstrap/Table";
-import Col from "react-bootstrap/Col";
 import moment from "moment";
 
 import Button from "@material-ui/core/Button";
@@ -18,7 +12,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -26,10 +19,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import { withStyles } from "@material-ui/core/styles";
 
 import { burningManDates, yearDefault } from "../dateFunctions.js";
-
-import editButton from "../assets/edit.svg";
-import deleteButton from "../assets/delete.svg";
-import closeButton from "../assets/close.svg";
 
 //
 // 2019 event types were:
@@ -49,16 +38,6 @@ import closeButton from "../assets/close.svg";
 
 const [firstDay] = burningManDates(yearDefault());
 
-// todo delete this when we have switched away from bootstrap
-//
-const DraggableModalDialog = (props) => {
-  return (
-    <Draggable handle=".modal-header">
-      <ModalDialog {...props} />
-    </Draggable>
-  );
-};
-
 const PaperComponent = (props) => {
   return (
     <Draggable
@@ -67,18 +46,6 @@ const PaperComponent = (props) => {
     >
       <Paper {...props} />
     </Draggable>
-  );
-};
-
-const WeeButton = ({ name, button, onClick }) => {
-  return (
-    <OverlayTrigger
-      placement="bottom"
-      overlay={<Tooltip>{name}</Tooltip>}
-      delay={{ show: 250, hide: 400 }}
-    >
-      <Image src={button} onClick={onClick} />
-    </OverlayTrigger>
   );
 };
 
@@ -197,27 +164,8 @@ const EventDialogEditing = ({
   show,
 }) => {
   return (
-    <Modal
-      animation={false}
-      dialogAs={DraggableModalDialog}
-      show={show}
-      onHide={close}
-      size="lg"
-      centered
-    >
-      <Modal.Header>
-        <Modal.Title>{title}</Modal.Title>
-        <div style={{ marginLeft: "auto" }}>
-          <WeeButton
-            name="Close"
-            button={closeButton}
-            onClick={() => {
-              close();
-            }}
-          />
-        </div>
-      </Modal.Header>
-      <Modal.Body>
+    <Dialog open={show} onClose={close} maxWidth="lg" fullWidth={true}>
+      <DialogContent dividers>
         <Form.Group>
           <Form.Label>Event name</Form.Label>
           <Form.Control
@@ -261,29 +209,6 @@ const EventDialogEditing = ({
                 ))}
               </tr>
             </tbody>
-
-            {/* <Form.Row>
-          <Col>
-            <Form.Label>Start Time</Form.Label>
-            <Form.Control
-              type="time"
-              value={startTime}
-              onChange={(e) => {
-                setStartTime(e.target.value);
-              }}
-            ></Form.Control>
-          </Col>
-          <Col>
-            <Form.Label>End Time</Form.Label>
-            <Form.Control
-              type="time"
-              value={endTime}
-              onChange={(e) => {
-                setEndTime(e.target.value);
-              }}  
-            ></Form.Control>
-          </Col>
-        </Form.Row> */}
           </Table>
 
           <br />
@@ -300,11 +225,15 @@ const EventDialogEditing = ({
             }}
           />
         </Form.Group>
-      </Modal.Body>
-      <Modal.Footer>
+      </DialogContent>
+
+      <DialogActions>
+        <Button color="primary" onClick={close}>
+          Cancel
+        </Button>
         <Button color="primary">Save</Button>
-      </Modal.Footer>
-    </Modal>
+      </DialogActions>
+    </Dialog>
   );
 };
 
