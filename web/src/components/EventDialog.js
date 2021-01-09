@@ -12,7 +12,17 @@ import Table from "react-bootstrap/Table";
 import Col from "react-bootstrap/Col";
 import moment from "moment";
 
-import { Button } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CloseIcon from "@material-ui/icons/Close";
+import { withStyles } from "@material-ui/core/styles";
 
 import { burningManDates, yearDefault } from "../dateFunctions.js";
 
@@ -87,31 +97,63 @@ const EventDialogStatic = ({
   setEditing,
   show,
 }) => {
-  return (
-    <Modal
-      animation={false}
-      dialogAs={DraggableModalDialog}
-      show={show}
-      onHide={close}
-      size="lg"
-      centered
-    >
-      <Modal.Header>
-        <Modal.Title>{title}</Modal.Title>
-        <div style={{ marginLeft: "auto" }}>
-          <WeeButton
-            name="Edit"
-            button={editButton}
-            onClick={() => {
-              setEditing(true);
-            }}
-          />
-          <WeeButton name="Delete" button={deleteButton} />
-          <WeeButton name="Close" button={closeButton} onClick={close} />
-        </div>
-      </Modal.Header>
+  const styles = (theme) => ({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+    },
+    editButton: {
+      position: "absolute",
+      right: theme.spacing(13),
+      top: theme.spacing(1),
+    },
+    deleteButton: {
+      position: "absolute",
+      right: theme.spacing(7),
+      top: theme.spacing(1),
+    },
+    closeButton: {
+      position: "absolute",
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+    },
+  });
 
-      <Modal.Body>
+  const DialogTitleWithButtons = withStyles(styles)((props) => {
+    const { children, classes, onClose, ...other } = props;
+    return (
+      <DialogTitle className={classes.root} {...other}>
+        <Typography variant="h5">{children}</Typography>
+
+        <IconButton
+          aria-label="edit"
+          onClick={() => {
+            setEditing(true);
+          }}
+          className={classes.editButton}
+        >
+          <EditIcon />
+        </IconButton>
+        <IconButton aria-label="delete" className={classes.deleteButton}>
+          <DeleteIcon />
+        </IconButton>
+        <IconButton
+          aria-label="close"
+          onClick={close}
+          className={classes.closeButton}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+    );
+  });
+
+  return (
+    <Dialog open={show} onClose={close} aria-labelledby="form-dialog-title">
+      <DialogTitleWithButtons id="form-dialog-title">
+        {title}
+      </DialogTitleWithButtons>
+      <DialogContent dividers>
         <EventDialogWhen days={days} start={start} end={end} />
         <br></br>
         {description}
@@ -123,8 +165,8 @@ const EventDialogStatic = ({
         <br />
         <br />
         <span style={{ fontSize: "2.2rem" }}>🤸‍♀️ 🍽 🔞</span>
-      </Modal.Body>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 
