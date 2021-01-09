@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-bootstrap/Modal";
+
 import Image from "react-bootstrap/Image";
 import Draggable from "react-draggable";
+import Modal from "react-bootstrap/Modal";
 import ModalDialog from "react-bootstrap/ModalDialog";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Form from "react-bootstrap/Form";
+
 import Table from "react-bootstrap/Table";
 import Col from "react-bootstrap/Col";
 import moment from "moment";
@@ -83,9 +85,18 @@ const EventDialogStatic = ({
   title,
   close,
   setEditing,
+  show,
+  onHide,
 }) => {
   return (
-    <>
+    <Modal
+      animation={false}
+      dialogAs={DraggableModalDialog}
+      show={show}
+      onHide={onHide}
+      size="lg"
+      centered
+    >
       <Modal.Header>
         <Modal.Title>{title}</Modal.Title>
         <div style={{ marginLeft: "auto" }}>
@@ -114,7 +125,7 @@ const EventDialogStatic = ({
         <br />
         <span style={{ fontSize: "2.2rem" }}>🤸‍♀️ 🍽 🔞</span>
       </Modal.Body>
-    </>
+    </Modal>
   );
 };
 
@@ -124,9 +135,17 @@ const EventDialogEditing = ({
   description,
   setDescription,
   close,
+  show,
 }) => {
   return (
-    <>
+    <Modal
+      animation={false}
+      dialogAs={DraggableModalDialog}
+      show={show}
+      onHide={close}
+      size="lg"
+      centered
+    >
       <Modal.Header>
         <Modal.Title>{title}</Modal.Title>
         <div style={{ marginLeft: "auto" }}>
@@ -226,7 +245,7 @@ const EventDialogEditing = ({
       <Modal.Footer>
         <Button color="primary">Save</Button>
       </Modal.Footer>
-    </>
+    </Modal>
   );
 };
 
@@ -257,34 +276,30 @@ export const EventDialog = ({ show, close, event }) => {
     close();
   };
 
-  return (
-    <Modal
-      animation={false}
-      dialogAs={DraggableModalDialog}
-      show={show}
-      onHide={handleClose}
-      size="lg"
-      centered
-    >
-      {editing ? (
-        <EventDialogEditing
-          title={title}
-          setTitle={setTitle}
-          description={description}
-          setDescription={setDescription}
-          close={handleClose}
-        />
-      ) : (
-        <EventDialogStatic
-          days={days}
-          start={start}
-          end={end}
-          description={description}
-          title={title}
-          close={handleClose}
-          setEditing={setEditing}
-        />
-      )}
-    </Modal>
-  );
+  if (editing) {
+    return (
+      <EventDialogEditing
+        show={show}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        close={handleClose}
+      />
+    );
+  } else {
+    return (
+      <EventDialogStatic
+        days={days}
+        start={start}
+        end={end}
+        description={description}
+        title={title}
+        close={handleClose}
+        setEditing={setEditing}
+        show={show}
+        onHide={handleClose}
+      />
+    );
+  }
 };
