@@ -159,6 +159,7 @@ const EventDialogStatic = ({
 };
 
 const EventDialogEditing = ({
+  days,
   title,
   setTitle,
   description,
@@ -200,6 +201,7 @@ const EventDialogEditing = ({
                 control={<Checkbox color="primary" />}
                 label={x}
                 key={"day" + i}
+                checked={days.includes(i)}
                 labelPlacement="bottom"
               />
             ))}
@@ -258,6 +260,7 @@ export const EventDialog = ({ show, close, event }) => {
   if (editing) {
     return (
       <EventDialogEditing
+        days={days}
         show={show}
         title={title}
         setTitle={setTitle}
