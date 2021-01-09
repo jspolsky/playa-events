@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Draggable from "react-draggable";
-import Form from "react-bootstrap/Form";
 
-import Table from "react-bootstrap/Table";
 import moment from "moment";
 
 import Button from "@material-ui/core/Button";
@@ -12,13 +10,18 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
+import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormLabel from "@material-ui/core/FormLabel";
+import TextField from "@material-ui/core/TextField";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
 import { withStyles } from "@material-ui/core/styles";
 
 import { burningManDates, yearDefault } from "../dateFunctions.js";
+import { FormControlLabel } from "@material-ui/core";
 
 //
 // 2019 event types were:
@@ -166,65 +169,53 @@ const EventDialogEditing = ({
   return (
     <Dialog open={show} onClose={close} maxWidth="lg" fullWidth={true}>
       <DialogContent dividers>
-        <Form.Group>
-          <Form.Label>Event name</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            placeholder="Event name"
-          />
-          <br />
-          <Table size="sm">
-            <tbody>
-              <tr>
-                {[
-                  "Sun",
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri",
-                  "Sat",
-                  "Sun",
-                  "Mon",
-                ].map((x, i) => (
-                  <td className="text-center" key={`dow${i}`}>
-                    {x}
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                {[...Array(9)].map((x, i) => (
-                  <td className="text-center" key={`dow${i}`}>
-                    <Form.Check
-                      inline
-                      style={{ marginRight: 0 }}
-                      type="checkbox"
-                    ></Form.Check>
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </Table>
-
-          <br />
-
-          <br />
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={5}
-            placeholder="Description"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          />
-        </Form.Group>
+        <TextField
+          fullWidth
+          label="Event name"
+          variant="outlined"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        ></TextField>
+        <FormLabel component="legend" style={{ marginTop: "2rem" }}>
+          What days does this event occur?
+        </FormLabel>{" "}
+        <Paper variant="outlined">
+          {" "}
+          <FormGroup row>
+            {[
+              "Sun",
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri",
+              "Sat",
+              "Sun",
+              "Mon",
+            ].map((x, i) => (
+              <FormControlLabel
+                value={i}
+                control={<Checkbox color="primary" />}
+                label={x}
+                key={"day" + i}
+                labelPlacement="bottom"
+              />
+            ))}
+          </FormGroup>
+        </Paper>
+        <TextField
+          fullWidth
+          multiline
+          label="Description"
+          variant="outlined"
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+          style={{ marginTop: "2rem" }}
+        />
       </DialogContent>
 
       <DialogActions>
