@@ -19,6 +19,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
@@ -48,10 +49,23 @@ import closeButton from "../assets/close.svg";
 
 const [firstDay] = burningManDates(yearDefault());
 
+// todo delete this when we have switched away from bootstrap
+//
 const DraggableModalDialog = (props) => {
   return (
     <Draggable handle=".modal-header">
       <ModalDialog {...props} />
+    </Draggable>
+  );
+};
+
+const PaperComponent = (props) => {
+  return (
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...props} />
     </Draggable>
   );
 };
@@ -149,8 +163,13 @@ const EventDialogStatic = ({
   });
 
   return (
-    <Dialog open={show} onClose={close} aria-labelledby="form-dialog-title">
-      <DialogTitleWithButtons id="form-dialog-title">
+    <Dialog
+      PaperComponent={PaperComponent}
+      open={show}
+      onClose={close}
+      aria-labelledby="draggable-dialog-title"
+    >
+      <DialogTitleWithButtons id="draggable-dialog-title">
         {title}
       </DialogTitleWithButtons>
       <DialogContent dividers>
