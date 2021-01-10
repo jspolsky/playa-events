@@ -159,16 +159,32 @@ const EventDialogStatic = ({
 };
 
 const EventDialogEditing = ({
+  show,
   days,
+  setDays,
   title,
   setTitle,
   description,
   setDescription,
   close,
-  show,
+  save,
 }) => {
+  const handleCheckbox = (e) => {
+    var newDays = [];
+
+    for (let i = 0; i < 9; i++) {
+      if (i + "" === e.target.value) {
+        if (e.target.checked) newDays.push(i);
+      } else {
+        if (days.includes(i)) newDays.push(i);
+      }
+    }
+
+    setDays(newDays);
+  };
+
   return (
-    <Dialog open={show} onClose={close} maxWidth="lg" fullWidth={true}>
+    <Dialog open={show} onClose={close} fullWidth maxWidth="md">
       <DialogContent dividers>
         <TextField
           fullWidth
@@ -197,11 +213,16 @@ const EventDialogEditing = ({
               "Mon",
             ].map((x, i) => (
               <FormControlLabel
-                value={i}
-                control={<Checkbox color="primary" />}
+                control={
+                  <Checkbox
+                    color="primary"
+                    value={i}
+                    checked={days.includes(i)}
+                    onChange={handleCheckbox}
+                  />
+                }
                 label={x}
                 key={"day" + i}
-                checked={days.includes(i)}
                 labelPlacement="bottom"
               />
             ))}
@@ -224,7 +245,9 @@ const EventDialogEditing = ({
         <Button color="primary" onClick={close}>
           Cancel
         </Button>
-        <Button color="primary">Save</Button>
+        <Button color="primary" onClick={save}>
+          Save
+        </Button>
       </DialogActions>
     </Dialog>
   );
@@ -257,21 +280,30 @@ export const EventDialog = ({ show, close, event }) => {
     close();
   };
 
+  const handleSave = (event) => {
+    console.log(`saving ${title}`);
+    console.log(`days are ${days}`);
+    close();
+  };
+
   if (editing) {
     return (
       <EventDialogEditing
-        days={days}
         show={show}
+        days={days}
+        setDays={setDays}
         title={title}
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
         close={handleClose}
+        save={handleSave}
       />
     );
   } else {
     return (
       <EventDialogStatic
+        show={show}
         days={days}
         start={start}
         end={end}
@@ -279,7 +311,6 @@ export const EventDialog = ({ show, close, event }) => {
         title={title}
         close={handleClose}
         setEditing={setEditing}
-        show={show}
       />
     );
   }
