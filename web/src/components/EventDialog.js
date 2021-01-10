@@ -166,6 +166,10 @@ const EventDialogEditing = ({
   setTitle,
   description,
   setDescription,
+  start,
+  setStart,
+  end,
+  setEnd,
   close,
   save,
 }) => {
@@ -253,13 +257,14 @@ const EventDialogEditing = ({
   );
 };
 
-export const EventDialog = ({ show, close, event }) => {
+export const EventDialog = ({ show, close, event, saveEvent }) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [days, setDays] = useState([]);
   const [start, setStart] = useState({ h: 12, m: 0 });
   const [end, setEnd] = useState({ h: 12, m: 0 });
+  const [rawid, setRawId] = useState(0);
 
   useEffect(() => {
     if (show) {
@@ -270,19 +275,26 @@ export const EventDialog = ({ show, close, event }) => {
       setDays(event.days);
       setStart(event.start);
       setEnd(event.end);
+      setRawId(event.id);
     } else {
       // dialog just disappeared
       setEditing(false);
     }
   }, [show, event]);
 
-  const handleClose = (event) => {
+  const handleClose = () => {
     close();
   };
 
-  const handleSave = (event) => {
-    console.log(`saving ${title}`);
-    console.log(`days are ${days}`);
+  const handleSave = () => {
+    saveEvent({
+      title: title,
+      description: description,
+      days: days,
+      start: start,
+      end: end,
+      id: rawid,
+    });
     close();
   };
 
@@ -296,6 +308,10 @@ export const EventDialog = ({ show, close, event }) => {
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
+        start={start}
+        setStart={setStart}
+        end={end}
+        setEnd={setEnd}
         close={handleClose}
         save={handleSave}
       />

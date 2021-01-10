@@ -134,6 +134,18 @@ function App() {
     );
   };
 
+  const saveEvent = (rawEvent) => {
+    setRawEvents(
+      rawEvents.map((e) => {
+        if (e.id === rawEvent.id) {
+          return rawEvent;
+        } else {
+          return e;
+        }
+      })
+    );
+  };
+
   const formatEvent = (event, start, end, isSelected) => {
     if (event.global)
       return {
@@ -153,6 +165,7 @@ function App() {
         show={showPopup}
         close={closeDrillDown}
         event={eventForPopup}
+        saveEvent={saveEvent}
       />
       <DraggableCalendar
         localizer={localizer}
