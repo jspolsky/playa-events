@@ -21,6 +21,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { withStyles } from "@material-ui/core/styles";
 
 import { burningManDates, yearDefault } from "../dateFunctions.js";
+import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
 import { FormControlLabel } from "@material-ui/core";
 
 //
@@ -61,9 +62,7 @@ const EventDialogWhen = ({ days, start, end }) => {
         </div>
       ))}
       <strong>
-        {moment({ hour: start.h, minute: start.m }).format("h:mma")}
-        &mdash;
-        {moment({ hour: end.h, minute: end.m }).format("h:mma")}
+        {FormatTime(start)} to {FormatTime(end)}
       </strong>
       <em>{end.h < start.h ? " next day" : ""}</em>
     </div>
@@ -194,6 +193,7 @@ const EventDialogEditing = ({
           fullWidth
           label="Event name"
           variant="outlined"
+          size="small"
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
@@ -232,6 +232,13 @@ const EventDialogEditing = ({
             ))}
           </FormGroup>
         </Paper>
+        <br />
+        <TimeSpanEditor
+          start={start}
+          setStart={setStart}
+          end={end}
+          setEnd={setEnd}
+        />
         <TextField
           fullWidth
           multiline
