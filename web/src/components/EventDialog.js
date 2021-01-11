@@ -169,6 +169,10 @@ const EventDialogEditing = ({
   setStart,
   end,
   setEnd,
+  atCamp,
+  setAtCamp,
+  location,
+  setLocation,
   close,
   save,
 }) => {
@@ -239,6 +243,34 @@ const EventDialogEditing = ({
           end={end}
           setEnd={setEnd}
         />
+        <FormControlLabel
+          style={{ marginTop: "2rem" }}
+          control={
+            <Checkbox
+              color="primary"
+              checked={atCamp}
+              onChange={(e) => {
+                setAtCamp(e.target.checked);
+              }}
+            />
+          }
+          color="primary"
+          label="Event takes place at our camp, which is placed"
+        />
+        <TextField
+          fullWidth
+          label="Location"
+          variant="outlined"
+          disabled={atCamp}
+          value={
+            atCamp
+              ? "Placement will fill in the location of your camp"
+              : location
+          }
+          onChange={(e) => {
+            setLocation(e.target.value);
+          }}
+        />{" "}
         <TextField
           fullWidth
           multiline
@@ -272,6 +304,8 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
   const [start, setStart] = useState({ h: 12, m: 0 });
   const [end, setEnd] = useState({ h: 12, m: 0 });
   const [rawid, setRawId] = useState(0);
+  const [atCamp, setAtCamp] = useState(true);
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
     if (show) {
@@ -319,6 +353,10 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
         setStart={setStart}
         end={end}
         setEnd={setEnd}
+        atCamp={atCamp}
+        setAtCamp={setAtCamp}
+        location={location}
+        setLocation={setLocation}
         close={handleClose}
         save={handleSave}
       />
