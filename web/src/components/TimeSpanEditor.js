@@ -3,6 +3,7 @@ import moment from "moment";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import Grid from "@material-ui/core/Grid";
 
 export const FormatTime = ({ h, m }) => {
   return moment({ hour: h, minute: m }).format("h:mma");
@@ -35,11 +36,12 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
   const [startValue, setStartValue] = useState(FormatTime(start));
   const [startIsValid, setStartIsValid] = useState(true);
 
+  const [endInput, setEndInput] = useState(FormatTime(end));
+  const [endValue, setEndValue] = useState(FormatTime(end));
+  const [endIsValid, setEndIsValid] = useState(true);
+
   return (
-    <>
-      <div>
-        {FormatTime(start)} to {FormatTime(end)}
-      </div>
+    <Grid container direction="row" justify="flex-start" alignItems="center">
       <Tooltip
         title="Invalid time"
         arrow
@@ -51,8 +53,8 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
           freeSolo={true}
           disableClearable={true}
           size="small"
+          style={{ width: "8rem", marginRight: "0.5rem" }}
           options={startTimes}
-          style={{ width: "7rem" }}
           inputValue={startInput}
           onInputChange={(event, newInputValue) => {
             const parsed = ParseTime(newInputValue);
@@ -67,7 +69,18 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
             const parsed = ParseTime(startInput);
             if (parsed) {
               setStartInput(FormatTime(parsed));
+              // successfully setting the start time
+              // always bumps the end time to keep
+              // the same duration
+              const dxMinutes =
+                (24 * 60 + (end.h * 60 + end.m) - (start.h * 60 + start.m)) %
+                (24 * 60);
+              const endMinutes = parsed.h * 60 + parsed.m + dxMinutes;
               setStart(parsed);
+              const newEnd = { h: (endMinutes / 60) % 24, m: endMinutes % 60 };
+              setEnd(newEnd);
+              setEndValue(FormatTime(newEnd));
+              setEndInput(FormatTime(newEnd));
             } else {
               // you can't type
               // restore original start time
@@ -78,6 +91,45 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
           renderInput={(params) => <TextField {...params} variant="outlined" />}
         />
       </Tooltip>
-    </>
+      <span>to</span>
+      <Tooltip
+        title="Invalid time"
+        arrow
+        placement="top-start"
+        open={!endIsValid}
+      >
+        <Autocomplete
+          id="endtime"
+          freeSolo={true}
+          disableClearable={true}
+          size="small"
+          style={{ width: "8rem", marginLeft: "0.5rem" }}
+          options={startTimes}
+          inputValue={endInput}
+          onInputChange={(event, newInputValue) => {
+            const parsed = ParseTime(newInputValue);
+            setEndIsValid(!!parsed);
+            setEndInput(newInputValue);
+          }}
+          value={endValue}
+          onChange={(event, newValue) => {
+            setEndValue(newValue);
+          }}
+          onBlur={() => {
+            const parsed = ParseTime(endInput);
+            if (parsed) {
+              setEndInput(FormatTime(parsed));
+              setEnd(parsed);
+            } else {
+              // you can't type
+              // restore original end time
+              setEndInput(FormatTime(end));
+              setEndIsValid(true);
+            }
+          }}
+          renderInput={(params) => <TextField {...params} variant="outlined" />}
+        />
+      </Tooltip>
+    </Grid>
   );
 };
