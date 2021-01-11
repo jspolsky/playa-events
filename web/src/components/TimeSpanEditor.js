@@ -33,7 +33,7 @@ const ParseTime = (s) => {
 export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
   const [startInput, setStartInput] = useState(FormatTime(start));
   const [startValue, setStartValue] = useState(FormatTime(start));
-  const [validTime, setValidTime] = useState(true);
+  const [startIsValid, setStartIsValid] = useState(true);
 
   return (
     <>
@@ -44,7 +44,7 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
         title="Invalid time"
         arrow
         placement="top-start"
-        open={!validTime}
+        open={!startIsValid}
       >
         <Autocomplete
           id="starttime"
@@ -56,7 +56,7 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
           inputValue={startInput}
           onInputChange={(event, newInputValue) => {
             const parsed = ParseTime(newInputValue);
-            setValidTime(!!parsed);
+            setStartIsValid(!!parsed);
             setStartInput(newInputValue);
           }}
           value={startValue}
@@ -72,7 +72,7 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
               // you can't type
               // restore original start time
               setStartInput(FormatTime(start));
-              setValidTime(true);
+              setStartIsValid(true);
             }
           }}
           renderInput={(params) => <TextField {...params} variant="outlined" />}
