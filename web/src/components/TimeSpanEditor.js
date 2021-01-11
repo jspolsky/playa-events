@@ -3,18 +3,12 @@ import moment from "moment";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import Popper from "@material-ui/core/Popper";
 import Grid from "@material-ui/core/Grid";
 
 export const FormatTime = ({ h, m }) => {
   return moment({ hour: h, minute: m }).format("h:mma");
 };
-
-let startTimes = [];
-for (let h = 0; h < 24; h++) {
-  for (let m = 0; m < 60; m += 15) {
-    startTimes.push(FormatTime({ h: h, m: m }));
-  }
-}
 
 const ParseTime = (s) => {
   const m = moment(s, "LT");
@@ -39,6 +33,41 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
   const [endInput, setEndInput] = useState(FormatTime(end));
   const [endValue, setEndValue] = useState(FormatTime(end));
   const [endIsValid, setEndIsValid] = useState(true);
+
+  let startTimes = [];
+  for (let h = 0; h < 24; h++) {
+    for (let m = 0; m < 60; m += 15) {
+      startTimes.push(FormatTime({ h: h, m: m }));
+    }
+  }
+
+  // possible event durations in minutes
+  let eventDurations = [0, 15, 30, 45];
+  for (let dx = 60; dx < 24 * 60; dx += 30) {
+    eventDurations.push(dx);
+  }
+
+  const endOptions = eventDurations.map((dx) => {
+    const thisEndMin = start.h * 60 + start.m + dx;
+    const thisEnd = { h: (thisEndMin / 60) % 24, m: thisEndMin % 60 };
+
+    return {
+      label: FormatTime(thisEnd),
+      render:
+        FormatTime(thisEnd) +
+        (dx < 60 ? ` (${dx} minutes)` : ` (${dx / 60} hours)`),
+    };
+  });
+
+  const WidePopper = (props) => {
+    const styles = (theme) => ({
+      popper: {
+        width: "fit-content",
+      },
+    });
+
+    return <Popper {...props} style={styles.popper} placement="bottom-start" />;
+  };
 
   return (
     <Grid container direction="row" justify="flex-start" alignItems="center">
@@ -104,7 +133,15 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
           disableClearable={true}
           size="small"
           style={{ width: "8rem", marginLeft: "0.5rem" }}
-          options={startTimes}
+          PopperComponent={WidePopper}
+          options={endOptions}
+          renderOption={(option) => {
+            return option.render;
+          }}
+          getOptionLabel={(option) => {
+            if (option.label) return option.label;
+            else return option;
+          }}
           inputValue={endInput}
           onInputChange={(event, newInputValue) => {
             const parsed = ParseTime(newInputValue);
