@@ -12,6 +12,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
@@ -24,21 +28,19 @@ import { burningManDates, yearDefault } from "../dateFunctions.js";
 import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
 import { FormControlLabel } from "@material-ui/core";
 
-//
-// 2019 event types were:
-//
-// Gathering/Party prty 🥳
-// Adult-oriented adlt 🔞
-// Care/Support care 🖐
-// Fire fire 🔥
-// Food food 🍽
-// Game game 🎲
-// Kid-friendly kid 🧸
-// Other othr
-// Parade para 🤸‍♀️
-// Performance perf 🎭
-// Class/Workshop work 🧑‍🏫
-//
+const eventTypes = [
+  { code: "prty", full: "Gathering/Party", emoji: "🥳" },
+  { code: "adlt", full: "Adult oriented", emoji: "🔞" },
+  { code: "care", full: "Care/Support", emoji: "🧘" },
+  { code: "fire", full: "Fire", emoji: "🔥" },
+  { code: "food", full: "Food", emoji: "🍽" },
+  { code: "game", full: "Game", emoji: "🎲" },
+  { code: "kid", full: "Kid friendly", emoji: "🧸" },
+  { code: "para", full: "Parade", emoji: "🤸‍♀️" },
+  { code: "perf", full: "Performance", emoji: "🎭" },
+  { code: "work", full: "Class/Workshop", emoji: "🧑‍🏫" },
+  { code: "othr", full: "Other", emoji: "🦄" }, // this has to be last
+];
 
 const [firstDay] = burningManDates(yearDefault());
 
@@ -77,6 +79,7 @@ const EventDialogStatic = ({
   title,
   atCamp,
   location,
+  type,
   close,
   setEditing,
   show,
@@ -132,6 +135,10 @@ const EventDialogStatic = ({
     );
   });
 
+  const eventType =
+    eventTypes.find((x) => x.code === type) ??
+    eventTypes[eventTypes.length - 1];
+
   return (
     <Dialog
       PaperComponent={PaperComponent}
@@ -143,6 +150,9 @@ const EventDialogStatic = ({
         {title}
       </DialogTitleWithButtons>
       <DialogContent dividers>
+        <div style={{ marginBottom: "2rem" }}>
+          {eventType.emoji} {eventType.full}
+        </div>
         <EventDialogWhen days={days} start={start} end={end} />
         <br></br>
         {description}
@@ -155,9 +165,6 @@ const EventDialogStatic = ({
         ) : (
           <span>{location}</span>
         )}
-        <br />
-        <br />
-        <span style={{ fontSize: "2.2rem" }}>🤸‍♀️ 🍽 🔞</span>
       </DialogContent>
     </Dialog>
   );
@@ -179,6 +186,8 @@ const EventDialogEditing = ({
   setAtCamp,
   location,
   setLocation,
+  type,
+  setType,
   close,
   save,
 }) => {
@@ -209,6 +218,32 @@ const EventDialogEditing = ({
             setTitle(e.target.value);
           }}
         ></TextField>
+        <FormControl
+          variant="outlined"
+          style={{ marginTop: "2rem" }}
+          size="small"
+        >
+          <InputLabel id="type-label">Type</InputLabel>
+          <Select
+            labelId="type-label"
+            id="type"
+            value={type}
+            onChange={(x) => {
+              setType(x.target.value);
+            }}
+            label="Type"
+            style={{ minWidth: "8rem" }}
+          >
+            {eventTypes.map((et) => {
+              return (
+                <MenuItem
+                  value={et.code}
+                  key={et.code}
+                >{`${et.emoji} ${et.full}`}</MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
         <FormLabel component="legend" style={{ marginTop: "2rem" }}>
           What days does this event occur?
         </FormLabel>{" "}
@@ -312,6 +347,7 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
   const [rawid, setRawId] = useState(0);
   const [atCamp, setAtCamp] = useState(true);
   const [location, setLocation] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
     if (show) {
@@ -323,8 +359,9 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
       setStart(event.start);
       setEnd(event.end);
       setRawId(event.id);
-      setAtCamp(event.atCamp);
-      setLocation(event.location);
+      setAtCamp(!!event.atCamp);
+      setLocation(event.location ?? "");
+      setType(event.type ?? "othr");
     } else {
       // dialog just disappeared
       setEditing(false);
@@ -345,6 +382,7 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
       id: rawid,
       atCamp: atCamp,
       location: location,
+      type: type,
     });
     close();
   };
@@ -367,6 +405,8 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
         setAtCamp={setAtCamp}
         location={location}
         setLocation={setLocation}
+        type={type}
+        setType={setType}
         close={handleClose}
         save={handleSave}
       />
@@ -382,6 +422,7 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
         title={title}
         atCamp={atCamp}
         location={location}
+        type={type}
         close={handleClose}
         setEditing={setEditing}
       />
