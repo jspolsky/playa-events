@@ -121,6 +121,8 @@ const EventDialogStatic = ({
 
   return (
     <Dialog
+      fullWidth
+      maxWidth="sm"
       PaperComponent={PaperComponent}
       open={show}
       onClose={close}
@@ -128,7 +130,7 @@ const EventDialogStatic = ({
     >
       <DialogTitleButtons id="draggable-dialog-title"></DialogTitleButtons>
       <DialogContent dividers>
-        <div style={{ marginBottom: "2rem", fontSize: "150%" }}>
+        <div style={{ marginBottom: "0.1rem", fontSize: "150%" }}>
           <strong>{title}</strong>
         </div>
         <div style={{ marginBottom: "2rem" }}>
