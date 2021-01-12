@@ -79,6 +79,7 @@ const EventDialogStatic = ({
   atCamp,
   location,
   type,
+  global,
   close,
   setEditing,
   show,
@@ -90,17 +91,23 @@ const EventDialogStatic = ({
         {...other}
         style={{ padding: "0 0 0 0", marginLeft: "auto" }}
       >
-        <IconButton
-          aria-label="edit"
-          onClick={() => {
-            setEditing(true);
-          }}
-        >
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
+        {!global ? (
+          <>
+            <IconButton
+              aria-label="edit"
+              onClick={() => {
+                setEditing(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+            <IconButton aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </>
+        ) : (
+          ""
+        )}
         <IconButton aria-label="close" onClick={close}>
           <CloseIcon />
         </IconButton>
@@ -328,6 +335,7 @@ export const EventDialog = ({
   const [atCamp, setAtCamp] = useState(true);
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
+  const [global, setGlobal] = useState(false);
 
   useEffect(() => {
     if (show) {
@@ -342,6 +350,7 @@ export const EventDialog = ({
       setAtCamp(!!event.atCamp);
       setLocation(event.location ?? "");
       setType(event.type ?? "othr");
+      setGlobal(!!event.global);
     } else {
       // dialog just disappeared
       setEditing(false);
@@ -403,6 +412,7 @@ export const EventDialog = ({
         atCamp={atCamp}
         location={location}
         type={type}
+        global={global}
         close={handleClose}
         setEditing={setEditing}
       />
