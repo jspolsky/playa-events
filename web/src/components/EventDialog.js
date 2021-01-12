@@ -216,10 +216,12 @@ const EventDialogEditing = ({
       <DialogContent dividers>
         <TextField
           fullWidth
+          autoFocus
           label="Event name"
           variant="outlined"
           size="small"
           value={title}
+          onFocus={(e) => e.currentTarget.select()}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
