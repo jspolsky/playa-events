@@ -22,7 +22,6 @@ import TextField from "@material-ui/core/TextField";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
-import { withStyles } from "@material-ui/core/styles";
 
 import { burningManDates, yearDefault } from "../dateFunctions.js";
 import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
@@ -84,56 +83,30 @@ const EventDialogStatic = ({
   setEditing,
   show,
 }) => {
-  const styles = (theme) => ({
-    root: {
-      margin: 0,
-      padding: theme.spacing(2),
-    },
-    editButton: {
-      position: "absolute",
-      right: theme.spacing(13),
-      top: theme.spacing(1),
-    },
-    deleteButton: {
-      position: "absolute",
-      right: theme.spacing(7),
-      top: theme.spacing(1),
-    },
-    closeButton: {
-      position: "absolute",
-      right: theme.spacing(1),
-      top: theme.spacing(1),
-    },
-  });
-
-  const DialogTitleWithButtons = withStyles(styles)((props) => {
-    const { children, classes, onClose, ...other } = props;
+  const DialogTitleButtons = (props) => {
+    const { onClose, ...other } = props;
     return (
-      <DialogTitle className={classes.root} {...other}>
-        {children}
-
+      <DialogTitle
+        {...other}
+        style={{ padding: "0 0 0 0", marginLeft: "auto" }}
+      >
         <IconButton
           aria-label="edit"
           onClick={() => {
             setEditing(true);
           }}
-          className={classes.editButton}
         >
           <EditIcon />
         </IconButton>
-        <IconButton aria-label="delete" className={classes.deleteButton}>
+        <IconButton aria-label="delete">
           <DeleteIcon />
         </IconButton>
-        <IconButton
-          aria-label="close"
-          onClick={close}
-          className={classes.closeButton}
-        >
+        <IconButton aria-label="close" onClick={close}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
     );
-  });
+  };
 
   const eventType =
     eventTypes.find((x) => x.code === type) ??
@@ -146,10 +119,11 @@ const EventDialogStatic = ({
       onClose={close}
       aria-labelledby="draggable-dialog-title"
     >
-      <DialogTitleWithButtons id="draggable-dialog-title">
-        {title}
-      </DialogTitleWithButtons>
+      <DialogTitleButtons id="draggable-dialog-title"></DialogTitleButtons>
       <DialogContent dividers>
+        <div style={{ marginBottom: "2rem", fontSize: "150%" }}>
+          <strong>{title}</strong>
+        </div>
         <div style={{ marginBottom: "2rem" }}>
           {eventType.emoji} {eventType.full}
         </div>
@@ -372,7 +346,7 @@ export const EventDialog = ({
       // dialog just disappeared
       setEditing(false);
     }
-  }, [show, event]);
+  }, [show, event, setEditing]);
 
   const handleClose = () => {
     close();
