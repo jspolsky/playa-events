@@ -213,7 +213,12 @@ const EventDialogEditing = ({
 
   return (
     <Dialog open={show} onClose={close} fullWidth maxWidth="md">
-      <form onSubmit={save}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          save();
+        }}
+      >
         <DialogContent dividers>
           <TextField
             fullWidth
