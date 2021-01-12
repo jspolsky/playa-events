@@ -75,6 +75,8 @@ const EventDialogStatic = ({
   end,
   description,
   title,
+  atCamp,
+  location,
   close,
   setEditing,
   show,
@@ -146,9 +148,13 @@ const EventDialogStatic = ({
         {description}
         <br></br>
         <br></br>
-        <strong>Location:</strong> Christmas Camp
+        <strong>Location:</strong>
         <br />
-        <i>(camp address will be provided by Placement)</i>
+        {atCamp ? (
+          <i>(camp address will be provided by Placement)</i>
+        ) : (
+          <span>{location}</span>
+        )}
         <br />
         <br />
         <span style={{ fontSize: "2.2rem" }}>🤸‍♀️ 🍽 🔞</span>
@@ -317,6 +323,8 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
       setStart(event.start);
       setEnd(event.end);
       setRawId(event.id);
+      setAtCamp(event.atCamp);
+      setLocation(event.location);
     } else {
       // dialog just disappeared
       setEditing(false);
@@ -335,6 +343,8 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
       start: start,
       end: end,
       id: rawid,
+      atCamp: atCamp,
+      location: location,
     });
     close();
   };
@@ -370,6 +380,8 @@ export const EventDialog = ({ show, close, event, saveEvent }) => {
         end={end}
         description={description}
         title={title}
+        atCamp={atCamp}
+        location={location}
         close={handleClose}
         setEditing={setEditing}
       />

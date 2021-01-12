@@ -16,6 +16,7 @@ export const initialRawEvents = [
     title: "East Village Shirtless Dance Party",
     description:
       "Future Turtles invites you to our opening night bash. Cosmos, dance music, and hot bartenders",
+    atCamp: true,
   },
   {
     start: { h: 21, m: 0 },
@@ -23,6 +24,8 @@ export const initialRawEvents = [
     days: [6],
     title: "Man Burn",
     global: true,
+    location: "The Man",
+    atCamp: false,
   },
   {
     start: { h: 18, m: 0 },
@@ -30,6 +33,8 @@ export const initialRawEvents = [
     days: [7],
     title: "Temple Burn",
     global: true,
+    location: "The Temple",
+    atCamp: false,
   },
   {
     start: { h: 11, m: 0 },
@@ -38,5 +43,16 @@ export const initialRawEvents = [
     title: "HIIT Workout",
     description:
       "Join the turtles for High Intensity Interval Training. Good music, smoothies. Bring yoga mat.",
+    atCamp: true,
+  },
+  {
+    start: { h: 0, m: 0 },
+    end: { h: 0, m: 45 },
+    days: [6],
+    title: "Impossibility space",
+    description:
+      "Storytelling from the edge of the multiverse with director Oscar Sharp",
+    atCamp: false,
+    location: "The Yurt, Echo at 4:15",
   },
 ];
