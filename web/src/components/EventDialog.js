@@ -337,8 +337,14 @@ const EventDialogEditing = ({
   );
 };
 
-export const EventDialog = ({ show, close, event, saveEvent }) => {
-  const [editing, setEditing] = useState(false);
+export const EventDialog = ({
+  show,
+  close,
+  event,
+  saveEvent,
+  editing,
+  setEditing,
+}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [days, setDays] = useState([]);

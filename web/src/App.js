@@ -75,19 +75,27 @@ function App() {
   const [rawEvents, setRawEvents] = useState(initialRawEvents);
   const [showPopup, setShowPopup] = useState(false);
   const [eventForPopup, setEventForPopup] = useState({});
+  const [editing, setEditing] = useState(false);
 
-  // TODO - this cheezy use of "window.prompt" will ultimately be
-  // replaced by creating a new event and then showing the popup.
-  // const newEventFromGrid = ({ start, end }) => {
-  //   const title = window.prompt("New Event name");
-  //   if (title) {
-  //     setEvents([...events, { start, end, title, id: identity++ }]);
-  //   }
-  // };
+  const newEventFromGrid = ({ start, end }) => {
+    const newEvent = {
+      start: { h: start.getHours(), m: start.getMinutes() },
+      end: { h: end.getHours(), m: end.getMinutes() },
+      days: [moment(start).diff(firstDay, "days")],
+      title: "New event",
+      id: identity++,
+    };
+
+    setRawEvents([...rawEvents, newEvent]);
+    setEventForPopup(newEvent);
+    setShowPopup(true);
+    setEditing(true);
+  };
 
   const drillDown = (event) => {
     setEventForPopup(rawEvents.find((e) => e.id === event.id));
     setShowPopup(true);
+    setEditing(false);
   };
 
   const closeDrillDown = () => {
@@ -166,6 +174,8 @@ function App() {
         close={closeDrillDown}
         event={eventForPopup}
         saveEvent={saveEvent}
+        editing={editing}
+        setEditing={setEditing}
       />
       <DraggableCalendar
         localizer={localizer}
@@ -176,7 +186,7 @@ function App() {
         views={{ agenda: true, week: BurnWeek }}
         selectable
         onSelectEvent={drillDown}
-        //               onSelectSlot={newEventFromGrid}
+        onSelectSlot={newEventFromGrid}
         showMultiDayTimes
         onEventDrop={moveEvent}
         onEventResize={moveEvent}
