@@ -25,6 +25,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 import { burningManDates, yearDefault } from "../dateFunctions.js";
 import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
+import { ConfirmDialog } from "./ConfirmDialog.js";
 import { FormControlLabel } from "@material-ui/core";
 
 const eventTypes = [
@@ -71,6 +72,7 @@ const EventDialogWhen = ({ days, start, end }) => {
 };
 
 const EventDialogStatic = ({
+  show,
   days,
   start,
   end,
@@ -82,8 +84,10 @@ const EventDialogStatic = ({
   global,
   close,
   setEditing,
-  show,
+  handleDelete,
 }) => {
+  const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
+
   const DialogTitleButtons = (props) => {
     const { onClose, ...other } = props;
     return (
@@ -101,7 +105,12 @@ const EventDialogStatic = ({
             >
               <EditIcon />
             </IconButton>
-            <IconButton aria-label="delete">
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                setOpenConfirmDelete(true);
+              }}
+            >
               <DeleteIcon />
             </IconButton>
           </>
@@ -148,6 +157,20 @@ const EventDialogStatic = ({
         ) : (
           <span>{location}</span>
         )}
+
+        <ConfirmDialog
+          open={openConfirmDelete}
+          setOpen={setOpenConfirmDelete}
+          title="Delete this event?"
+          message={
+            days.length > 1
+              ? `This will delete ALL ${days.length} occurences of this event. Are you sure?`
+              : "Are you sure you want to delete this event?"
+          }
+          no="Cancel"
+          yes="Yes, Delete it"
+          doIt={handleDelete}
+        />
       </DialogContent>
     </Dialog>
   );
@@ -325,6 +348,7 @@ export const EventDialog = ({
   close,
   event,
   saveEvent,
+  deleteEvent,
   editing,
   setEditing,
 }) => {
@@ -378,6 +402,11 @@ export const EventDialog = ({
     close();
   };
 
+  const handleDelete = () => {
+    deleteEvent(rawid);
+    close();
+  };
+
   if (editing) {
     return (
       <EventDialogEditing
@@ -417,6 +446,7 @@ export const EventDialog = ({
         global={global}
         close={handleClose}
         setEditing={setEditing}
+        handleDelete={handleDelete}
       />
     );
   }

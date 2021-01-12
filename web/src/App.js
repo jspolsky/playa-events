@@ -154,6 +154,10 @@ function App() {
     );
   };
 
+  const deleteEvent = (rawEventId) => {
+    setRawEvents(rawEvents.filter((x) => x.id !== rawEventId));
+  };
+
   const formatEvent = (event, start, end, isSelected) => {
     if (event.global)
       return {
@@ -174,6 +178,7 @@ function App() {
         close={closeDrillDown}
         event={eventForPopup}
         saveEvent={saveEvent}
+        deleteEvent={deleteEvent}
         editing={editing}
         setEditing={setEditing}
       />
