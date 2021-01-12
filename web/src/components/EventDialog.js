@@ -213,134 +213,136 @@ const EventDialogEditing = ({
 
   return (
     <Dialog open={show} onClose={close} fullWidth maxWidth="md">
-      <DialogContent dividers>
-        <TextField
-          fullWidth
-          autoFocus
-          label="Event name"
-          variant="outlined"
-          size="small"
-          value={title}
-          onFocus={(e) => e.currentTarget.select()}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        ></TextField>
-        <FormControl
-          variant="outlined"
-          style={{ marginTop: "2rem" }}
-          size="small"
-        >
-          <InputLabel id="type-label">Type</InputLabel>
-          <Select
-            labelId="type-label"
-            id="type"
-            value={type}
-            onChange={(x) => {
-              setType(x.target.value);
+      <form onSubmit={save}>
+        <DialogContent dividers>
+          <TextField
+            fullWidth
+            autoFocus
+            label="Event name"
+            variant="outlined"
+            size="small"
+            value={title}
+            onFocus={(e) => e.currentTarget.select()}
+            onChange={(e) => {
+              setTitle(e.target.value);
             }}
-            label="Type"
-            style={{ minWidth: "8rem" }}
+          ></TextField>
+          <FormControl
+            variant="outlined"
+            style={{ marginTop: "2rem" }}
+            size="small"
           >
-            {eventTypes.map((et) => {
-              return (
-                <MenuItem
-                  value={et.code}
-                  key={et.code}
-                >{`${et.emoji} ${et.full}`}</MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormLabel component="legend" style={{ marginTop: "2rem" }}>
-          What days does this event occur?
-        </FormLabel>{" "}
-        <Paper variant="outlined">
-          {" "}
-          <FormGroup row>
-            {[
-              "Sun",
-              "Mon",
-              "Tue",
-              "Wed",
-              "Thu",
-              "Fri",
-              "Sat",
-              "Sun",
-              "Mon",
-            ].map((x, i) => (
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    color="primary"
-                    value={i}
-                    checked={days.includes(i)}
-                    onChange={handleCheckbox}
-                  />
-                }
-                label={x}
-                key={"day" + i}
-                labelPlacement="bottom"
-              />
-            ))}
-          </FormGroup>
-        </Paper>
-        <br />
-        <TimeSpanEditor
-          start={start}
-          setStart={setStart}
-          end={end}
-          setEnd={setEnd}
-        />
-        <FormControlLabel
-          style={{ marginTop: "2rem" }}
-          control={
-            <Checkbox
-              color="primary"
-              checked={atCamp}
-              onChange={(e) => {
-                setAtCamp(e.target.checked);
+            <InputLabel id="type-label">Type</InputLabel>
+            <Select
+              labelId="type-label"
+              id="type"
+              value={type}
+              onChange={(x) => {
+                setType(x.target.value);
               }}
-            />
-          }
-          color="primary"
-          label="Event takes place at our camp, which is placed"
-        />
-        <TextField
-          fullWidth
-          label="Location"
-          variant="outlined"
-          disabled={atCamp}
-          value={
-            atCamp
-              ? "Placement will fill in the location of your camp"
-              : location
-          }
-          onChange={(e) => {
-            setLocation(e.target.value);
-          }}
-        />{" "}
-        <TextField
-          fullWidth
-          multiline
-          label="Description"
-          variant="outlined"
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
-          style={{ marginTop: "2rem" }}
-        />
-      </DialogContent>
+              label="Type"
+              style={{ minWidth: "8rem" }}
+            >
+              {eventTypes.map((et) => {
+                return (
+                  <MenuItem
+                    value={et.code}
+                    key={et.code}
+                  >{`${et.emoji} ${et.full}`}</MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormLabel component="legend" style={{ marginTop: "2rem" }}>
+            What days does this event occur?
+          </FormLabel>{" "}
+          <Paper variant="outlined">
+            {" "}
+            <FormGroup row>
+              {[
+                "Sun",
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun",
+                "Mon",
+              ].map((x, i) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      value={i}
+                      checked={days.includes(i)}
+                      onChange={handleCheckbox}
+                    />
+                  }
+                  label={x}
+                  key={"day" + i}
+                  labelPlacement="bottom"
+                />
+              ))}
+            </FormGroup>
+          </Paper>
+          <br />
+          <TimeSpanEditor
+            start={start}
+            setStart={setStart}
+            end={end}
+            setEnd={setEnd}
+          />
+          <FormControlLabel
+            style={{ marginTop: "2rem" }}
+            control={
+              <Checkbox
+                color="primary"
+                checked={atCamp}
+                onChange={(e) => {
+                  setAtCamp(e.target.checked);
+                }}
+              />
+            }
+            color="primary"
+            label="Event takes place at our camp, which is placed"
+          />
+          <TextField
+            fullWidth
+            label="Location"
+            variant="outlined"
+            disabled={atCamp}
+            value={
+              atCamp
+                ? "Placement will fill in the location of your camp"
+                : location
+            }
+            onChange={(e) => {
+              setLocation(e.target.value);
+            }}
+          />{" "}
+          <TextField
+            fullWidth
+            multiline
+            label="Description"
+            variant="outlined"
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            style={{ marginTop: "2rem" }}
+          />
+        </DialogContent>
 
-      <DialogActions>
-        <Button color="primary" onClick={close}>
-          Cancel
-        </Button>
-        <Button color="primary" onClick={save}>
-          Save
-        </Button>
-      </DialogActions>
+        <DialogActions>
+          <Button color="primary" onClick={close}>
+            Cancel
+          </Button>
+          <Button color="primary" type="submit">
+            Save
+          </Button>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };
