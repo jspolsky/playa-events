@@ -46,13 +46,30 @@ export const initialRawEvents = [
     atCamp: true,
   },
   {
-    start: { h: 0, m: 0 },
-    end: { h: 0, m: 45 },
+    start: { h: 18, m: 0 },
+    end: { h: 23, m: 59 },
+    days: [2, 3, 4, 5],
+    title: "Your Dreams Interpreted",
+    description:
+      "Visit the Future Turtles straight-friendly bar to ogle our hot bartenders, and get your dreams interpreted. Unique alcoholic and non-alcoholic cocktails every night.",
+    atCamp: true,
+  },
+  {
+    start: { h: 0, m: 45 },
+    end: { h: 1, m: 30 },
     days: [6],
     title: "Impossibility space",
     description:
       "Storytelling from the edge of the multiverse with director Oscar Sharp",
     atCamp: false,
     location: "The Yurt, Echo at 4:15",
+  },
+  {
+    start: { h: 0, m: 0 },
+    end: { h: 0, m: 45 },
+    days: [2, 3, 4, 5, 6],
+    title: "Midnight coffee",
+    description: "Trying to stay awake? The turtles have you sorted.",
+    atCamp: true,
   },
 ];
