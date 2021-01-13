@@ -159,15 +159,15 @@ function App() {
   };
 
   const formatEvent = (event, start, end, isSelected) => {
-    if (event.global)
-      return {
-        // note: you could be setting className instead of style here and that would be probably better
-        style: {
-          backgroundColor: isSelected ? "tan" : "cornsilk",
-          color: "black",
-        },
-      };
-    return {};
+    return {
+      style: {
+        backgroundColor: event.global ? "#E4DDCD" : "#1A5084",
+        color: event.global ? "black" : "white",
+        fontSize: "0.8rem",
+        fontWeight: 600,
+        opacity: 0.8,
+      },
+    };
   };
 
   return (
@@ -189,6 +189,16 @@ function App() {
         events={CalEventsFromRawEvents(rawEvents)}
         style={{ height: "100vh" }}
         views={{ agenda: true, week: BurnWeek }}
+        formats={{
+          timeGutterFormat: (date) => moment(date).format("ha"),
+          dayFormat: (date) => moment(date).format("ddd, MMM D"),
+          eventTimeRangeFormat: ({ start, end }) =>
+            moment(start).format("h:mma"),
+          eventTimeRangeStartFormat: (date) => moment(date).format("h:mma"),
+          eventTimeRangeEndFormat: (date) => moment(date).format("—h:mma"),
+          selectRangeFormat: ({ start, end }) =>
+            moment(start).format("h:mma—") + moment(end).format("h:mma"),
+        }}
         selectable
         onSelectEvent={drillDown}
         onSelectSlot={newEventFromGrid}
