@@ -19,6 +19,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
@@ -28,21 +29,56 @@ import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
 import { ConfirmDialog } from "./ConfirmDialog.js";
 import { FormControlLabel } from "@material-ui/core";
 
+import bannerPrty from "../assets/banner-prty.jpg";
+import bannerAdlt from "../assets/banner-adlt.jpg";
+import bannerCare from "../assets/banner-care.jpg";
+import bannerFire from "../assets/banner-fire.jpg";
+import bannerFood from "../assets/banner-food.jpg";
+import bannerGame from "../assets/banner-game.jpg";
+import bannerKid from "../assets/banner-kid.jpg";
+import bannerPara from "../assets/banner-para.jpg";
+import bannerPerf from "../assets/banner-perf.jpg";
+import bannerWork from "../assets/banner-work.jpg";
+import bannerOthr from "../assets/banner-othr.jpg";
+
 const eventTypes = [
-  { code: "prty", full: "Gathering/Party", emoji: "🥳" },
-  { code: "adlt", full: "Adult oriented", emoji: "🔞" },
-  { code: "care", full: "Care/Support", emoji: "🧘" },
-  { code: "fire", full: "Fire", emoji: "🔥" },
-  { code: "food", full: "Food", emoji: "🍽" },
-  { code: "game", full: "Game", emoji: "🎲" },
-  { code: "kid", full: "Kid friendly", emoji: "🧸" },
-  { code: "para", full: "Parade", emoji: "🤸‍♀️" },
-  { code: "perf", full: "Performance", emoji: "🎭" },
-  { code: "work", full: "Class/Workshop", emoji: "🧑‍🏫" },
-  { code: "othr", full: "Other", emoji: "🦄" }, // this has to be last
+  { code: "prty", full: "Gathering/Party", emoji: "🥳", banner: bannerPrty },
+  { code: "adlt", full: "Adult oriented", emoji: "🔞", banner: bannerAdlt },
+  { code: "care", full: "Care/Support", emoji: "🧘", banner: bannerCare },
+  { code: "fire", full: "Fire", emoji: "🔥", banner: bannerFire },
+  { code: "food", full: "Food", emoji: "🍽", banner: bannerFood },
+  { code: "game", full: "Game", emoji: "🎲", banner: bannerGame },
+  { code: "kid", full: "Kid friendly", emoji: "🧸", banner: bannerKid },
+  { code: "para", full: "Parade", emoji: "🤸‍♀️", banner: bannerPara },
+  { code: "perf", full: "Performance", emoji: "🎭", banner: bannerPerf },
+  { code: "work", full: "Class/Workshop", emoji: "🧑‍🏫", banner: bannerWork },
+  { code: "othr", full: "Other", emoji: "🦄", banner: bannerOthr }, // this has to be last
 ];
 
+const BannerFromType = (type) => eventTypes.find((x) => x.code === type).banner;
+
 const [firstDay] = burningManDates(yearDefault());
+
+const styles = (theme) => ({
+  toolButton: {
+    opacity: "70%",
+    backgroundColor: "white",
+    padding: "7px",
+    margin: "5px",
+    "&:hover": { backgroundColor: "white", opacity: "100%", color: "blue" },
+  },
+
+  staticTitlebar: {
+    padding: "0 0 0 0",
+    xmarginLeft: "auto",
+    display: "flex",
+    justifyContent: "flex-end",
+    height: "120px",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+  },
+});
 
 const PaperComponent = (props) => {
   return (
@@ -88,12 +124,13 @@ const EventDialogStatic = ({
 }) => {
   const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
 
-  const DialogTitleButtons = (props) => {
-    const { onClose, ...other } = props;
+  const DialogTitleButtons = withStyles(styles)((props) => {
+    const { onClose, classes, ...other } = props;
     return (
       <DialogTitle
         {...other}
-        style={{ padding: "0 0 0 0", marginLeft: "auto" }}
+        className={classes.staticTitlebar}
+        style={{ backgroundImage: `url(${BannerFromType(type)})` }}
       >
         {!global ? (
           <>
@@ -102,6 +139,8 @@ const EventDialogStatic = ({
               onClick={() => {
                 setEditing(true);
               }}
+              color="primary"
+              className={classes.toolButton}
             >
               <EditIcon />
             </IconButton>
@@ -110,6 +149,8 @@ const EventDialogStatic = ({
               onClick={() => {
                 setOpenConfirmDelete(true);
               }}
+              color="primary"
+              className={classes.toolButton}
             >
               <DeleteIcon />
             </IconButton>
@@ -117,12 +158,17 @@ const EventDialogStatic = ({
         ) : (
           ""
         )}
-        <IconButton aria-label="close" onClick={close}>
+        <IconButton
+          aria-label="close"
+          onClick={close}
+          color="primary"
+          className={classes.toolButton}
+        >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
     );
-  };
+  });
 
   const eventType =
     eventTypes.find((x) => x.code === type) ??

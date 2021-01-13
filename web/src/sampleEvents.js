@@ -27,6 +27,7 @@ export const initialRawEvents = [
     global: true,
     location: "The Man",
     atCamp: false,
+    type: "fire",
   },
   {
     start: { h: 18, m: 0 },
@@ -36,6 +37,7 @@ export const initialRawEvents = [
     global: true,
     location: "The Temple",
     atCamp: false,
+    type: "fire",
   },
   {
     start: { h: 11, m: 0 },
