@@ -83,6 +83,7 @@ function App() {
       end: { h: end.getHours(), m: end.getMinutes() },
       days: [moment(start).diff(firstDay, "days")],
       title: "New event",
+      type: "othr",
       id: identity++,
     };
 
