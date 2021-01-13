@@ -194,7 +194,8 @@ function App() {
           dayFormat: (date) => moment(date).format("ddd, MMM D"),
           eventTimeRangeFormat: ({ start, end }) =>
             moment(start).format("h:mma"),
-          eventTimeRangeStartFormat: (date) => moment(date).format("h:mma"),
+          eventTimeRangeStartFormat: ({ start, end }) =>
+            moment(start).format("h:mma"),
           eventTimeRangeEndFormat: ({ start, end }) =>
             moment(end).format("—h:mma"),
           selectRangeFormat: ({ start, end }) =>
