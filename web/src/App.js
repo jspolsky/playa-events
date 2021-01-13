@@ -195,7 +195,8 @@ function App() {
           eventTimeRangeFormat: ({ start, end }) =>
             moment(start).format("h:mma"),
           eventTimeRangeStartFormat: (date) => moment(date).format("h:mma"),
-          eventTimeRangeEndFormat: (date) => moment(date).format("—h:mma"),
+          eventTimeRangeEndFormat: ({ start, end }) =>
+            moment(end).format("—h:mma"),
           selectRangeFormat: ({ start, end }) =>
             moment(start).format("h:mma—") + moment(end).format("h:mma"),
         }}
