@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import EventIcon from "@material-ui/icons/Event";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,12 @@ const ButtonAppBar = ({ title, handleNewEvent }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          <Button color="inherit" onClick={handleNewEvent}>
+          <Button
+            color="default"
+            onClick={handleNewEvent}
+            variant="contained"
+            startIcon={<EventIcon />}
+          >
             New Event
           </Button>
         </Toolbar>
