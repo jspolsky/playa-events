@@ -77,15 +77,20 @@ function App() {
   const [eventForPopup, setEventForPopup] = useState({});
   const [editing, setEditing] = useState(false);
 
+  const newEventTemplate = {
+    title: "New event",
+    type: "othr",
+    atCamp: true,
+    newEvent: true, // this makes it so that a "cancel" doesn't save
+  };
+
   const newEventFromGrid = ({ start, end }) => {
     const newEvent = {
+      ...newEventTemplate,
       start: { h: start.getHours(), m: start.getMinutes() },
       end: { h: end.getHours(), m: end.getMinutes() },
       days: [moment(start).diff(firstDay, "days")],
-      title: "New event",
-      type: "othr",
       id: identity++,
-      newEvent: true, // this makes it so that a "cancel" doesn't save
     };
 
     setRawEvents([...rawEvents, newEvent]);
@@ -96,13 +101,11 @@ function App() {
 
   const handleNewEvent = () => {
     const newEvent = {
+      ...newEventTemplate,
       start: { h: 12, m: 0 },
       end: { h: 14, m: 0 },
       days: [1],
-      title: "New event",
-      type: "othr",
       id: identity++,
-      newEvent: true, // this makes it so that a "cancel" doesn't save
     };
 
     setRawEvents([...rawEvents, newEvent]);
