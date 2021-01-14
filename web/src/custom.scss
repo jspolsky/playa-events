@@ -19,3 +19,9 @@
   background-color: rgb(71, 238, 230);
   cursor: pointer;
 }
+
+// Hack to prevent all-day events:
+
+.rbc-allday-cell {
+  display: none;
+}

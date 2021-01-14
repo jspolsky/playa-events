@@ -93,6 +93,22 @@ function App() {
     setEditing(true);
   };
 
+  const handleNewEvent = () => {
+    const newEvent = {
+      start: { h: 12, m: 0 },
+      end: { h: 14, m: 0 },
+      days: [1],
+      title: "New event",
+      type: "othr",
+      id: identity++,
+    };
+
+    setRawEvents([...rawEvents, newEvent]);
+    setEventForPopup(newEvent);
+    setShowPopup(true);
+    setEditing(true);
+  };
+
   const drillDown = (event) => {
     setEventForPopup(rawEvents.find((e) => e.id === event.id));
     setShowPopup(true);
@@ -173,7 +189,6 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <EventDialog
         show={showPopup}
         close={closeDrillDown}
@@ -209,6 +224,13 @@ function App() {
         onEventDrop={moveEvent}
         onEventResize={moveEvent}
         eventPropGetter={formatEvent}
+        components={{
+          toolbar: (props) => {
+            return (
+              <Header title={props.label} handleNewEvent={handleNewEvent} />
+            );
+          },
+        }}
       />
     </div>
   );

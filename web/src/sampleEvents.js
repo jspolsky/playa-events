@@ -61,7 +61,7 @@ export const initialRawEvents = [
   },
   {
     start: { h: 0, m: 45 },
-    end: { h: 1, m: 30 },
+    end: { h: 2, m: 0 },
     days: [6],
     title: "Impossibility space",
     description:
