@@ -85,6 +85,7 @@ function App() {
       title: "New event",
       type: "othr",
       id: identity++,
+      newEvent: true, // this makes it so that a "cancel" doesn't save
     };
 
     setRawEvents([...rawEvents, newEvent]);
@@ -101,6 +102,7 @@ function App() {
       title: "New event",
       type: "othr",
       id: identity++,
+      newEvent: true, // this makes it so that a "cancel" doesn't save
     };
 
     setRawEvents([...rawEvents, newEvent]);

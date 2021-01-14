@@ -439,6 +439,9 @@ export const EventDialog = ({
   }, [show, event, setEditing]);
 
   const handleClose = () => {
+    if (event.newEvent) {
+      deleteEvent(event.id);
+    }
     close();
   };
 
@@ -453,6 +456,7 @@ export const EventDialog = ({
       atCamp: atCamp,
       location: location,
       type: type,
+      newEvent: false,
     });
     close();
   };
