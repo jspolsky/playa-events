@@ -13,6 +13,10 @@ import { BurnWeek } from "./components/BurnWeek.js";
 import { initialRawEvents } from "./sampleEvents";
 import { EventDialog } from "./components/EventDialog";
 
+export const sum = (a, b) => {
+  return a + b;
+};
+
 // Playa Events!
 
 const localizer = momentLocalizer(moment);
