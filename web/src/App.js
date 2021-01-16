@@ -49,7 +49,7 @@ initialRawEvents.forEach((e) => {
 // - explodes multi-day events into several separate events (in the example above, there are three instances of the event)
 // - convert the start and end times to actual Dates
 //
-const CalEventsFromRawEvents = (rawEvents) => {
+export const CalEventsFromRawEvents = (rawEvents) => {
   let calEvents = [];
 
   rawEvents.forEach((e) => {
