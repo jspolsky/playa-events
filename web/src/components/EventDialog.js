@@ -27,6 +27,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { burningManDates, yearDefault } from "../dateFunctions.js";
 import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
 import { ConfirmDialog } from "./ConfirmDialog.js";
+import { LineSplitter } from "./LineSplitter.js";
 import { FormControlLabel } from "@material-ui/core";
 
 import bannerPrty from "../assets/banner-prty.jpg";
@@ -193,7 +194,7 @@ const EventDialogStatic = ({
         </div>
         <EventDialogWhen days={days} start={start} end={end} />
         <br></br>
-        {description}
+        <LineSplitter variant="body1">{description}</LineSplitter>
         <br></br>
         <br></br>
         <strong>Location:</strong>
