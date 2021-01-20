@@ -187,7 +187,7 @@ function App() {
   const formatEvent = (event, start, end, isSelected) => {
     return {
       style: {
-        backgroundColor: event.global ? "#E4DDCD" : "#1A5084",
+        backgroundColor: event.global ? "#E4DDCD" : "#00203F",
         color: event.global ? "black" : "white",
         fontSize: "0.8rem",
         fontWeight: 600,
