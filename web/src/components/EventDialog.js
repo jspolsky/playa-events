@@ -188,7 +188,11 @@ const EventDialogStatic = ({
     >
       <DialogTitleButtons id="draggable-dialog-title"></DialogTitleButtons>
       <DialogContent dividers>
-        {eventError ? <Alert severity="error">{eventError}</Alert> : null}
+        {eventError ? (
+          <Alert severity="error" elevation={6} variant="filled">
+            {eventError}
+          </Alert>
+        ) : null}
         <div style={{ marginBottom: "0.1rem", fontSize: "150%" }}>
           <strong>{title}</strong>
         </div>

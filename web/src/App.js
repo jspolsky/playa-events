@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.scss";
+import Alert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import { Header } from "./components/Header.js";
 
@@ -84,6 +86,7 @@ function App() {
   const [showPopup, setShowPopup] = useState(false);
   const [eventForPopup, setEventForPopup] = useState({});
   const [editing, setEditing] = useState(false);
+  const [globalError, setGlobalError] = useState(false);
 
   const newEventTemplate = {
     title: "New event",
@@ -161,12 +164,16 @@ function App() {
             newDays[0] = moment(start).diff(moment(firstDay), "days");
           }
 
-          return {
+          const result = {
             ...e,
             start: { h: start.getHours(), m: start.getMinutes() },
             end: { h: end.getHours(), m: end.getMinutes() },
             days: newDays,
           };
+
+          setGlobalError(CheckEvent(result));
+
+          return result;
         } else {
           return e;
         }
@@ -175,6 +182,8 @@ function App() {
   };
 
   const saveEvent = (rawEvent) => {
+    setGlobalError(CheckEvent(rawEvent));
+
     setRawEvents(
       rawEvents.map((e) => {
         if (e.id === rawEvent.id) {
@@ -212,6 +221,11 @@ function App() {
 
   return (
     <div className="App">
+      <Snackbar open={globalError !== false}>
+        <Alert severity="error" elevation={6} variant="filled">
+          {globalError}
+        </Alert>
+      </Snackbar>
       <EventDialog
         show={showPopup}
         close={closeDrillDown}
