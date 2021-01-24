@@ -87,6 +87,7 @@ function App() {
   const [eventForPopup, setEventForPopup] = useState({});
   const [editing, setEditing] = useState(false);
   const [globalError, setGlobalError] = useState(false);
+  const [dblClickTimer, setDblClickTimer] = useState(null);
 
   const newEventTemplate = {
     title: "New event",
@@ -128,9 +129,24 @@ function App() {
   };
 
   const drillDown = (event) => {
+    // single click - show the event in static mode
+    // double click - show the event for editing
+
     setEventForPopup(rawEvents.find((e) => e.id === event.id));
-    setShowPopup(true);
     setEditing(false);
+
+    if (dblClickTimer) {
+      clearTimeout(dblClickTimer);
+      setDblClickTimer(null);
+      setEditing(!eventForPopup.global); // but you can never edit global events
+    }
+
+    setDblClickTimer(
+      setTimeout(() => {
+        setShowPopup(true);
+        setDblClickTimer(null);
+      }, 200)
+    );
   };
 
   const closeDrillDown = () => {
