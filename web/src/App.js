@@ -68,6 +68,7 @@ export const CalEventsFromRawEvents = (rawEvents) => {
         title: e.title,
         id: e.id, // multiple calendar events may point to same raw event
         global: e.global,
+        eventError: e.eventError ?? false,
       });
     });
   });
@@ -86,6 +87,7 @@ function App() {
     type: "othr",
     atCamp: true,
     newEvent: true, // this makes it so that a "cancel" doesn't save
+    eventError: false,
   };
 
   const newEventFromGrid = ({ start, end }) => {

@@ -4,6 +4,7 @@ exports[`CalEventsFromRawEvents 1`] = `
 Array [
   Object {
     "end": 2021-08-31T06:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 0,
     "start": 2021-08-31T00:00:00.000Z,
@@ -11,6 +12,7 @@ Array [
   },
   Object {
     "end": 2021-09-05T03:30:00.000Z,
+    "eventError": false,
     "global": true,
     "id": 1,
     "start": 2021-09-05T01:00:00.000Z,
@@ -18,6 +20,7 @@ Array [
   },
   Object {
     "end": 2021-09-06T01:00:00.000Z,
+    "eventError": false,
     "global": true,
     "id": 2,
     "start": 2021-09-05T22:00:00.000Z,
@@ -25,6 +28,7 @@ Array [
   },
   Object {
     "end": 2021-08-31T16:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 3,
     "start": 2021-08-31T15:00:00.000Z,
@@ -32,6 +36,7 @@ Array [
   },
   Object {
     "end": 2021-09-01T16:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 3,
     "start": 2021-09-01T15:00:00.000Z,
@@ -39,6 +44,7 @@ Array [
   },
   Object {
     "end": 2021-09-02T16:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 3,
     "start": 2021-09-02T15:00:00.000Z,
@@ -46,6 +52,7 @@ Array [
   },
   Object {
     "end": 2021-09-03T16:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 3,
     "start": 2021-09-03T15:00:00.000Z,
@@ -53,6 +60,7 @@ Array [
   },
   Object {
     "end": 2021-09-04T16:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 3,
     "start": 2021-09-04T15:00:00.000Z,
@@ -60,6 +68,7 @@ Array [
   },
   Object {
     "end": 2021-09-01T03:59:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 4,
     "start": 2021-08-31T22:00:00.000Z,
@@ -67,6 +76,7 @@ Array [
   },
   Object {
     "end": 2021-09-03T03:59:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 4,
     "start": 2021-09-02T22:00:00.000Z,
@@ -74,6 +84,7 @@ Array [
   },
   Object {
     "end": 2021-09-02T03:59:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 5,
     "start": 2021-09-01T22:00:00.000Z,
@@ -81,6 +92,7 @@ Array [
   },
   Object {
     "end": 2021-09-02T22:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 6,
     "start": 2021-09-02T20:00:00.000Z,
@@ -88,6 +100,7 @@ Array [
   },
   Object {
     "end": 2021-09-04T03:59:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 7,
     "start": 2021-09-03T22:00:00.000Z,
@@ -95,6 +108,7 @@ Array [
   },
   Object {
     "end": 2021-09-04T06:00:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 8,
     "start": 2021-09-04T04:45:00.000Z,
@@ -102,6 +116,7 @@ Array [
   },
   Object {
     "end": 2021-08-31T04:45:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 9,
     "start": 2021-08-31T04:00:00.000Z,
@@ -109,6 +124,7 @@ Array [
   },
   Object {
     "end": 2021-09-01T04:45:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 9,
     "start": 2021-09-01T04:00:00.000Z,
@@ -116,6 +132,7 @@ Array [
   },
   Object {
     "end": 2021-09-02T04:45:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 9,
     "start": 2021-09-02T04:00:00.000Z,
@@ -123,6 +140,7 @@ Array [
   },
   Object {
     "end": 2021-09-03T04:45:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 9,
     "start": 2021-09-03T04:00:00.000Z,
@@ -130,6 +148,7 @@ Array [
   },
   Object {
     "end": 2021-09-04T04:45:00.000Z,
+    "eventError": false,
     "global": undefined,
     "id": 9,
     "start": 2021-09-04T04:00:00.000Z,
