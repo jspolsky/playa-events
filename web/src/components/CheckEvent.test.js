@@ -92,6 +92,57 @@ const otherEvents = [
     },
     "Events may not be longer than 12 hours",
   ],
+  [
+    {
+      start: { h: 20, m: 0 },
+      end: { h: 2, m: 0 },
+      days: [1],
+      title: "New event",
+      description:
+        "Future Turtles invites you to our opening night bash. Cosmos, dance music, hugs and friendly bartenders.",
+      atCamp: true,
+      type: "prty",
+    },
+    "Event needs a name",
+  ],
+  [
+    {
+      start: { h: 20, m: 0 },
+      end: { h: 2, m: 0 },
+      days: [1],
+      title: "",
+      description:
+        "Future Turtles invites you to our opening night bash. Cosmos, dance music, hugs and friendly bartenders.",
+      atCamp: true,
+      type: "prty",
+    },
+    "Event needs a name",
+  ],
+  [
+    {
+      start: { h: 20, m: 0 },
+      end: { h: 2, m: 0 },
+      days: [1],
+      title: "ab",
+      description:
+        "Future Turtles invites you to our opening night bash. Cosmos, dance music, hugs and friendly bartenders.",
+      atCamp: true,
+      type: "prty",
+    },
+    "Event name must be at least three letters long",
+  ],
+  [
+    {
+      start: { h: 20, m: 0 },
+      end: { h: 2, m: 0 },
+      days: [1],
+      title: "Tiara party",
+      description: "",
+      atCamp: true,
+      type: "prty",
+    },
+    "Event must have a description",
+  ],
 ];
 
 test.each(otherEvents)("Check otherEvents %o", (e, r) => {

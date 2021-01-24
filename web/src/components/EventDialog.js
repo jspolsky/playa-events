@@ -15,6 +15,7 @@ import Paper from "@material-ui/core/Paper";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
+import Alert from "@material-ui/lab/Alert";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -119,6 +120,7 @@ const EventDialogStatic = ({
   location,
   type,
   global,
+  eventError,
   close,
   setEditing,
   handleDelete,
@@ -186,6 +188,7 @@ const EventDialogStatic = ({
     >
       <DialogTitleButtons id="draggable-dialog-title"></DialogTitleButtons>
       <DialogContent dividers>
+        {eventError ? <Alert severity="error">{eventError}</Alert> : null}
         <div style={{ marginBottom: "0.1rem", fontSize: "150%" }}>
           <strong>{title}</strong>
         </div>
@@ -418,6 +421,7 @@ export const EventDialog = ({
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
   const [global, setGlobal] = useState(false);
+  const [eventError, setEventError] = useState(false);
 
   useEffect(() => {
     if (show) {
@@ -433,6 +437,7 @@ export const EventDialog = ({
       setLocation(event.location ?? "");
       setType(event.type ?? "othr");
       setGlobal(!!event.global);
+      setEventError(event.eventError);
     } else {
       // dialog just disappeared
       setEditing(false);
@@ -504,6 +509,7 @@ export const EventDialog = ({
         location={location}
         type={type}
         global={global}
+        eventError={eventError}
         close={handleClose}
         setEditing={setEditing}
         handleDelete={handleDelete}

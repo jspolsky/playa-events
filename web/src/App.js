@@ -12,6 +12,7 @@ import { burningManDates, yearDefault } from "./dateFunctions.js";
 import { BurnWeek } from "./components/BurnWeek.js";
 import { initialRawEvents } from "./sampleEvents";
 import { EventDialog } from "./components/EventDialog";
+import { CheckEvent } from "./components/CheckEvent.js";
 
 export const sum = (a, b) => {
   return a + b;
@@ -53,6 +54,8 @@ export const CalEventsFromRawEvents = (rawEvents) => {
   let calEvents = [];
 
   rawEvents.forEach((e) => {
+    e.eventError = CheckEvent(e);
+
     e.days.forEach((d) => {
       calEvents.push({
         start: moment(firstDay)
@@ -68,7 +71,7 @@ export const CalEventsFromRawEvents = (rawEvents) => {
         title: e.title,
         id: e.id, // multiple calendar events may point to same raw event
         global: e.global,
-        eventError: e.eventError ?? false,
+        eventError: e.eventError,
       });
     });
   });
@@ -88,6 +91,7 @@ function App() {
     atCamp: true,
     newEvent: true, // this makes it so that a "cancel" doesn't save
     eventError: false,
+    description: "",
   };
 
   const newEventFromGrid = ({ start, end }) => {
@@ -187,13 +191,21 @@ function App() {
   };
 
   const formatEvent = (event, start, end, isSelected) => {
+    let bgColor = "#00203F";
+    if (event.global) {
+      bgColor = "#E4DDCD";
+    }
+    if (event.eventError) {
+      bgColor = "#DC4156";
+    }
+
     return {
       style: {
-        backgroundColor: event.global ? "#E4DDCD" : "#00203F",
+        backgroundColor: bgColor,
         color: event.global ? "black" : "white",
         fontSize: "0.8rem",
-        fontWeight: 600,
-        opacity: 0.8,
+        fontWeight: 500,
+        opacity: 0.7,
       },
     };
   };
@@ -236,6 +248,14 @@ function App() {
         onEventResize={moveEvent}
         eventPropGetter={formatEvent}
         components={{
+          event: ({ event }) => {
+            return (
+              <span>
+                {!!event.eventError ? "⚠️ " : ""}
+                {event.title}
+              </span>
+            );
+          },
           toolbar: (props) => {
             return (
               <Header title={props.label} handleNewEvent={handleNewEvent} />

@@ -28,6 +28,8 @@ export const initialRawEvents = [
     location: "The Man",
     atCamp: false,
     type: "fire",
+    description:
+      "Since 1986, we have gathered every summer to burn a large wooden effigy, referred to as The Man.",
   },
   {
     start: { h: 18, m: 0 },
@@ -38,6 +40,8 @@ export const initialRawEvents = [
     location: "The Temple",
     atCamp: false,
     type: "fire",
+    description:
+      "The Temple is a community shared space that is an important part of Black Rock City. It is not a temple in recognition of any religion; it’s a neutral, non-denominational spiritual space where everyone can gather to share in the experience of remembering the past, honoring or cursing the present, and pondering the future to come.",
   },
   {
     start: { h: 11, m: 0 },

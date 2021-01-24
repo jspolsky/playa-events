@@ -5,7 +5,7 @@
  * @return {(string | false)} false if event is OK, otherwise a string error message
  */
 export const CheckEvent = (e) => {
-  const { start, end, days } = e;
+  const { start, end, days, title, description } = e;
   if (end.h < start.h) {
     // event wraps past midnight
     end.h += 24;
@@ -22,6 +22,18 @@ export const CheckEvent = (e) => {
 
   if (durationInMinutes > 12 * 60) {
     return "Events may not be longer than 12 hours";
+  }
+
+  if (title === "New event" || title === "") {
+    return "Event needs a name";
+  }
+
+  if (title.length < 3) {
+    return "Event name must be at least three letters long";
+  }
+
+  if (description === "" || description === undefined) {
+    return "Event must have a description";
   }
 
   return false;
