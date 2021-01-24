@@ -197,6 +197,7 @@ function App() {
 
   const deleteEvent = (rawEventId) => {
     setRawEvents(rawEvents.filter((x) => x.id !== rawEventId));
+    setGlobalError(false);
   };
 
   const formatEvent = (event, start, end, isSelected) => {
