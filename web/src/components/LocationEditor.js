@@ -18,6 +18,7 @@ export const LocationEditor = ({
   setLocationType,
 }) => {
   const options = [
+    // [codename, label for radio button, prompt for text editor]
     ["camp", "Theme camp", "Camp name"],
     ["art", "Artwork", "Artwork name"],
     ["other", "Other", "Detailed location"],
