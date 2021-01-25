@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -17,6 +18,8 @@ export const NameAndDescriptionEditor = ({
   setType,
   description,
   setDescription,
+  url,
+  setUrl,
 }) => {
   return (
     <Card style={{ marginBottom: "1rem" }}>
@@ -33,32 +36,47 @@ export const NameAndDescriptionEditor = ({
             setTitle(e.target.value);
           }}
         ></TextField>
-        <FormControl
-          variant="outlined"
-          style={{ marginTop: "2rem" }}
-          size="small"
-        >
-          <InputLabel id="type-label">Type</InputLabel>
-          <Select
-            labelId="type-label"
-            id="type"
-            value={type}
-            onChange={(x) => {
-              setType(x.target.value);
-            }}
-            label="Type"
-            style={{ minWidth: "8rem" }}
-          >
-            {eventTypes.map((et) => {
-              return (
-                <MenuItem
-                  value={et.code}
-                  key={et.code}
-                >{`${et.emoji} ${et.full}`}</MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+
+        <Grid container spacing={0} style={{ marginTop: "2rem" }}>
+          <Grid item xs={3}>
+            <FormControl variant="outlined" size="small">
+              <InputLabel id="type-label">Type</InputLabel>
+              <Select
+                labelId="type-label"
+                id="type"
+                value={type}
+                onChange={(x) => {
+                  setType(x.target.value);
+                }}
+                label="Type"
+                style={{ minWidth: "8rem" }}
+              >
+                {eventTypes.map((et) => {
+                  return (
+                    <MenuItem
+                      value={et.code}
+                      key={et.code}
+                    >{`${et.emoji} ${et.full}`}</MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={9}>
+            <TextField
+              fullWidth
+              label="URL (optional)"
+              variant="outlined"
+              size="small"
+              value={url}
+              onFocus={(e) => e.currentTarget.select()}
+              onChange={(e) => {
+                setUrl(e.target.value);
+              }}
+            ></TextField>
+          </Grid>
+        </Grid>
+
         <TextField
           fullWidth
           multiline

@@ -97,6 +97,7 @@ function App() {
     newEvent: true, // this makes it so that a "cancel" doesn't save
     eventError: false,
     description: "",
+    url: "",
   };
 
   const newEventFromGrid = ({ start, end }) => {

@@ -44,6 +44,7 @@ import bannerPerf from "../assets/banner-perf.jpg";
 import bannerWork from "../assets/banner-work.jpg";
 import bannerOthr from "../assets/banner-othr.jpg";
 import { NameAndDescriptionEditor } from "./NameAndDescriptionEditor";
+import { validateURL } from "../validateUrl.js";
 
 export const eventTypes = [
   { code: "prty", full: "Gathering/Party", emoji: "🥳", banner: bannerPrty },
@@ -118,6 +119,7 @@ const EventDialogStatic = ({
   end,
   description,
   title,
+  url,
   location,
   locationType,
   type,
@@ -199,7 +201,14 @@ const EventDialogStatic = ({
           <strong>{title}</strong>
         </div>
         <div style={{ marginBottom: "2rem" }}>
-          {eventType.emoji} {eventType.full}
+          {url && validateURL(url) && (
+            <div>
+              <a target="_blank" rel="noreferrer" href={url}>
+                {url}
+              </a>
+            </div>
+          )}
+          {eventType.emoji} {eventType.full}{" "}
         </div>
         <EventDialogWhen days={days} start={start} end={end} />
         <br></br>
@@ -242,6 +251,8 @@ const EventDialogEditing = ({
   setTitle,
   description,
   setDescription,
+  url,
+  setUrl,
   start,
   setStart,
   end,
@@ -285,6 +296,8 @@ const EventDialogEditing = ({
             setType={setType}
             description={description}
             setDescription={setDescription}
+            url={url}
+            setUrl={setUrl}
           />
           <Card style={{ marginBottom: "1rem" }}>
             <CardContent>
@@ -362,6 +375,7 @@ export const EventDialog = ({
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
   const [days, setDays] = useState([]);
   const [start, setStart] = useState({ h: 12, m: 0 });
   const [end, setEnd] = useState({ h: 12, m: 0 });
@@ -378,6 +392,7 @@ export const EventDialog = ({
       // pull out editable data from event
       setTitle(event.title);
       setDescription(event.description);
+      setUrl(event.url ?? "");
       setDays(event.days);
       setStart(event.start);
       setEnd(event.end);
@@ -404,6 +419,7 @@ export const EventDialog = ({
     saveEvent({
       title: title,
       description: description,
+      url: url,
       days: days,
       start: start,
       end: end,
@@ -431,6 +447,8 @@ export const EventDialog = ({
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
+        url={url}
+        setUrl={setUrl}
         start={start}
         setStart={setStart}
         end={end}
@@ -454,6 +472,7 @@ export const EventDialog = ({
         end={end}
         description={description}
         title={title}
+        url={url}
         location={location}
         locationType={locationType}
         type={type}

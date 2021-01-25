@@ -19,6 +19,7 @@ export const initialRawEvents = [
     locationType: "camp",
     location: "Future Turtles",
     type: "prty",
+    url: "https://futureturtles.com",
   },
   {
     start: { h: 21, m: 0 },

@@ -1,3 +1,5 @@
+import { validateURL } from "../validateUrl.js";
+
 /**
  * Checks if an event has any obvious errors that will cause it to be rejected
  *
@@ -5,7 +7,7 @@
  * @return {(string | false)} false if event is OK, otherwise a string error message
  */
 export const CheckEvent = (e) => {
-  let { start, end, days, title, description, locationType } = e;
+  let { start, end, days, title, description, locationType, url } = e;
 
   if (end.h < start.h) {
     // event wraps past midnight
@@ -41,6 +43,10 @@ export const CheckEvent = (e) => {
 
   if (description === "" || description === undefined) {
     return "Event must have a description";
+  }
+
+  if (url && !validateURL(url)) {
+    return "URL is invalid";
   }
 
   return false;
