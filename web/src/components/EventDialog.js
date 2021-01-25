@@ -396,7 +396,7 @@ const EventDialogEditing = ({
                     <Grid item xs={2}>
                       <FormControlLabel
                         value="camp"
-                        control={<Radio />}
+                        control={<Radio color="primary" />}
                         label="Theme camp"
                       />
                     </Grid>
@@ -420,7 +420,7 @@ const EventDialogEditing = ({
                     <Grid item xs={2}>
                       <FormControlLabel
                         value="art"
-                        control={<Radio />}
+                        control={<Radio color="primary" />}
                         label="Artwork"
                       />
                     </Grid>
@@ -444,7 +444,7 @@ const EventDialogEditing = ({
                     <Grid item xs={2}>
                       <FormControlLabel
                         value="other"
-                        control={<Radio />}
+                        control={<Radio color="primary" />}
                         label="Other"
                       />
                     </Grid>
