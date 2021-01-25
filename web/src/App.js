@@ -98,6 +98,7 @@ function App() {
     eventError: false,
     description: "",
     url: "",
+    submitForPrint: false,
   };
 
   const newEventFromGrid = ({ start, end }) => {

@@ -27,9 +27,11 @@ import {
   DialogTitle,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   FormLabel,
   IconButton,
   Paper,
+  Switch,
 } from "@material-ui/core";
 
 import bannerPrty from "../assets/banner-prty.jpg";
@@ -263,6 +265,8 @@ const EventDialogEditing = ({
   setLocation,
   type,
   setType,
+  submitForPrint,
+  setSubmitForPrint,
   close,
   save,
 }) => {
@@ -365,6 +369,28 @@ const EventDialogEditing = ({
             setLocationType={setLocationType}
             setDirty={setDirty}
           />
+          <Card>
+            <CardContent>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={submitForPrint}
+                    onChange={(e) => {
+                      setSubmitForPrint(e.target.checked);
+                      setDirty(true);
+                    }}
+                    name="submitForPrint"
+                    color="primary"
+                  />
+                }
+                label="Submit this event to printed WhatWhereWhen guide"
+              />
+              <FormHelperText>
+                Due to limited space, only a very small number of events can be
+                printed.
+              </FormHelperText>
+            </CardContent>
+          </Card>
         </DialogContent>
 
         <DialogActions>
@@ -399,6 +425,7 @@ export const EventDialog = ({
   const [locationType, setLocationType] = useState("other");
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
+  const [submitForPrint, setSubmitForPrint] = useState(false);
   const [global, setGlobal] = useState(false);
   const [eventError, setEventError] = useState(false);
 
@@ -416,6 +443,7 @@ export const EventDialog = ({
       setLocation(event.location ?? "");
       setLocationType(event.locationType ?? "other");
       setType(event.type ?? "othr");
+      setSubmitForPrint(!!event.submitForPrint);
       setGlobal(!!event.global);
       setEventError(event.eventError);
     } else {
@@ -443,6 +471,7 @@ export const EventDialog = ({
       location: location,
       locationType: locationType,
       type: type,
+      submitForPrint: submitForPrint,
       newEvent: false,
     });
     close();
@@ -475,6 +504,8 @@ export const EventDialog = ({
         setLocationType={setLocationType}
         type={type}
         setType={setType}
+        submitForPrint={submitForPrint}
+        setSubmitForPrint={setSubmitForPrint}
         close={handleClose}
         save={handleSave}
       />

@@ -26,7 +26,7 @@ export const LocationEditor = ({
   ];
 
   return (
-    <Card>
+    <Card style={{ marginBottom: "1rem" }}>
       <CardContent>
         <FormControl component="fieldset" fullWidth>
           <FormLabel component="legend">Location</FormLabel>
