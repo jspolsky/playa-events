@@ -5,10 +5,11 @@
  * @return {(string | false)} false if event is OK, otherwise a string error message
  */
 export const CheckEvent = (e) => {
-  const { start, end, days, title, description } = e;
+  let { start, end, days, title, description } = e;
+
   if (end.h < start.h) {
     // event wraps past midnight
-    end.h += 24;
+    end = { h: end.h + 24, m: end.m };
   }
   const durationInMinutes = end.h * 60 + end.m - (start.h * 60 + start.m);
 
