@@ -17,6 +17,12 @@ export const LocationEditor = ({
   locationType,
   setLocationType,
 }) => {
+  const options = [
+    ["camp", "Theme camp", "Camp name"],
+    ["art", "Artwork", "Artwork name"],
+    ["other", "Other", "Detailed location"],
+  ];
+
   return (
     <Card>
       <CardContent>
@@ -28,81 +34,40 @@ export const LocationEditor = ({
             value={locationType}
             onChange={(e) => {
               setLocationType(e.target.value);
+              setLocation("");
             }}
           >
             <Grid container spacing={0}>
-              <Grid item xs={2}>
-                <FormControlLabel
-                  value="camp"
-                  control={<Radio color="primary" />}
-                  label="Theme camp"
-                />
-              </Grid>
-              <Grid item xs={10}>
-                {locationType === "camp" ? (
-                  <TextField
-                    fullWidth
-                    id="campLocation"
-                    label="Camp name"
-                    variant="outlined"
-                    size="small"
-                    value={location}
-                    onChange={(e) => {
-                      setLocation(e.target.value);
-                    }}
-                  />
-                ) : (
-                  ""
-                )}
-              </Grid>
-              <Grid item xs={2}>
-                <FormControlLabel
-                  value="art"
-                  control={<Radio color="primary" />}
-                  label="Artwork"
-                />
-              </Grid>
-              <Grid item xs={10}>
-                {locationType === "art" ? (
-                  <TextField
-                    fullWidth
-                    id="artLocation"
-                    label="Artwork name"
-                    variant="outlined"
-                    size="small"
-                    value={location}
-                    onChange={(e) => {
-                      setLocation(e.target.value);
-                    }}
-                  />
-                ) : (
-                  ""
-                )}
-              </Grid>
-              <Grid item xs={2}>
-                <FormControlLabel
-                  value="other"
-                  control={<Radio color="primary" />}
-                  label="Other"
-                />
-              </Grid>
-              <Grid item xs={10}>
-                {locationType === "other" ? (
-                  <TextField
-                    fullWidth
-                    id="otherLocation"
-                    label="Detailed location"
-                    variant="outlined"
-                    size="small"
-                    value={location}
-                    onChange={(e) => {
-                      setLocation(e.target.value);
-                    }}
-                  />
-                ) : (
-                  ""
-                )}
-              </Grid>
+              {options.map((x) => {
+                return (
+                  <React.Fragment key={x[0]}>
+                    <Grid item xs={2}>
+                      <FormControlLabel
+                        value={x[0]}
+                        control={<Radio color="primary" />}
+                        label={x[1]}
+                      />
+                    </Grid>
+                    <Grid item xs={10}>
+                      {locationType === x[0] ? (
+                        <TextField
+                          fullWidth
+                          id={`${x[0]}Location`}
+                          label={x[2]}
+                          variant="outlined"
+                          size="small"
+                          value={location}
+                          onChange={(e) => {
+                            setLocation(e.target.value);
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
+                  </React.Fragment>
+                );
+              })}
             </Grid>
           </RadioGroup>
         </FormControl>
