@@ -93,6 +93,7 @@ function App() {
     title: "New event",
     type: "othr",
     atCamp: true,
+    locationType: "other",
     newEvent: true, // this makes it so that a "cancel" doesn't save
     eventError: false,
     description: "",

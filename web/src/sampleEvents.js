@@ -16,7 +16,8 @@ export const initialRawEvents = [
     title: "East Village Shirtless Dance Party",
     description:
       "Future Turtles invites you to our opening night bash. Cosmos, dance music, hugs and friendly bartenders.",
-    atCamp: true,
+    locationType: "camp",
+    location: "Future Turtles",
     type: "prty",
   },
   {
@@ -25,8 +26,8 @@ export const initialRawEvents = [
     days: [6],
     title: "Man Burn",
     global: true,
-    location: "The Man",
-    atCamp: false,
+    location: "The Man Base",
+    locationType: "other",
     type: "fire",
     description:
       "Since 1986, we have gathered every summer to burn a large wooden effigy, referred to as The Man.",
@@ -38,7 +39,7 @@ export const initialRawEvents = [
     title: "Temple Burn",
     global: true,
     location: "The Temple",
-    atCamp: false,
+    locationType: "other",
     type: "fire",
     description:
       "The Temple is a community shared space that is an important part of Black Rock City. It is not a temple in recognition of any religion; it’s a neutral, non-denominational spiritual space where everyone can gather to share in the experience of remembering the past, honoring or cursing the present, and pondering the future to come.",
@@ -50,7 +51,8 @@ export const initialRawEvents = [
     title: "Lazy workout",
     description:
       "Join the turtles for High Intensity Interval Training, only we're super lazy so it won't be that high intensity. Good music, smoothies. Bring yoga mat.",
-    atCamp: true,
+    locationType: "camp",
+    location: "Future Turtles",
     type: "care",
   },
   {
@@ -60,7 +62,8 @@ export const initialRawEvents = [
     title: "Your Dreams Interpreted",
     description:
       "Visit the Future Turtles straight-friendly bar to ogle our hot bartenders, and get your dreams interpreted. Unique alcoholic and non-alcoholic cocktails every night.",
-    atCamp: true,
+    locationType: "camp",
+    location: "Future Turtles",
     type: "prty",
   },
   {
@@ -70,7 +73,8 @@ export const initialRawEvents = [
     title: "Cook yer sausage",
     description:
       "Visit the Future Turtles straight-friendly bar to ogle our hot bartenders, and cook your sausage in our deep boiling pots of fragrant water. BRING YOUR OWN SAUSAGE. (If you have a cow, you can make sausage at Farm Camp, Esplanade and 6:15). Unique alcoholic and non-alcoholic cocktails every night.",
-    atCamp: true,
+    locationType: "camp",
+    location: "Future Turtles",
     type: "food",
   },
   {
@@ -80,7 +84,7 @@ export const initialRawEvents = [
     title: "Billion Bunny March",
     description:
       "Come over to the bunny side. Hop. Wiggle your tail. Deliver colorful eggs and support a universal campaign of fluffy goodness for all. NO CARROTS",
-    atCamp: false,
+    locationType: "other",
     location:
       "Meet at Center Camp; march will proceed to the Man at 4:30 sharp",
     type: "para",
@@ -92,10 +96,10 @@ export const initialRawEvents = [
     title: "AP Calculus Study Group",
     description:
       "Trying to get a leg up before school resumes next week? Our expert instructors will cover the most important parts of Leibniz's amazing invention. Unique alcoholic and non-alcoholic cocktails will be served.",
-    atCamp: true,
+    locationType: "camp",
+    location: "Future Turtles",
     type: "work",
   },
-
   {
     start: { h: 0, m: 45 },
     end: { h: 2, m: 0 },
@@ -103,7 +107,7 @@ export const initialRawEvents = [
     title: "Impossibility space",
     description:
       "Storytelling from the edge of the multiverse with director Oscar Sharp",
-    atCamp: false,
+    locationType: "other",
     location: "The Yurt, Echo at 4:15",
     type: "perf",
   },
@@ -113,7 +117,8 @@ export const initialRawEvents = [
     days: [2, 3, 4, 5, 6],
     title: "Midnight coffee",
     description: "Trying to stay awake? The turtles have you sorted.",
-    atCamp: true,
+    locationType: "camp",
+    location: "Future Turtles",
     type: "food",
   },
 ];

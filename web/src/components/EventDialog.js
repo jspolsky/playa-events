@@ -29,7 +29,14 @@ import { burningManDates, yearDefault } from "../dateFunctions.js";
 import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
 import { ConfirmDialog } from "./ConfirmDialog.js";
 import { LineSplitter } from "./LineSplitter.js";
-import { Card, CardContent, FormControlLabel } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 
 import bannerPrty from "../assets/banner-prty.jpg";
 import bannerAdlt from "../assets/banner-adlt.jpg";
@@ -116,8 +123,8 @@ const EventDialogStatic = ({
   end,
   description,
   title,
-  atCamp,
   location,
+  locationType,
   type,
   global,
   eventError,
@@ -206,8 +213,10 @@ const EventDialogStatic = ({
         <br></br>
         <strong>Location:</strong>
         <br />
-        {atCamp ? (
-          <i>(camp address will be provided by Placement)</i>
+        {locationType === "camp" ? (
+          <span>Located at theme camp ({location})</span>
+        ) : locationType === "art" ? (
+          <span>Located at art work ({location})</span>
         ) : (
           <span>{location}</span>
         )}
@@ -242,8 +251,8 @@ const EventDialogEditing = ({
   setStart,
   end,
   setEnd,
-  atCamp,
-  setAtCamp,
+  locationType,
+  setLocationType,
   location,
   setLocation,
   type,
@@ -373,33 +382,92 @@ const EventDialogEditing = ({
           </Card>
           <Card>
             <CardContent>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    color="primary"
-                    checked={atCamp}
-                    onChange={(e) => {
-                      setAtCamp(e.target.checked);
-                    }}
-                  />
-                }
-                color="primary"
-                label="Event takes place at our camp, which is placed"
-              />
-              <TextField
-                fullWidth
-                label="Location"
-                variant="outlined"
-                disabled={atCamp}
-                value={
-                  atCamp
-                    ? "Placement will fill in the location of your camp"
-                    : location
-                }
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                }}
-              />
+              <FormControl component="fieldset" fullWidth>
+                <FormLabel component="legend">Location</FormLabel>
+                <RadioGroup
+                  aria-label="Location"
+                  name="locationtype"
+                  value={locationType}
+                  onChange={(e) => {
+                    setLocationType(e.target.value);
+                  }}
+                >
+                  <Grid container spacing={0}>
+                    <Grid item xs={2}>
+                      <FormControlLabel
+                        value="camp"
+                        control={<Radio />}
+                        label="Theme camp"
+                      />
+                    </Grid>
+                    <Grid item xs={10}>
+                      {locationType === "camp" ? (
+                        <TextField
+                          fullWidth
+                          id="campLocation"
+                          label="Camp name"
+                          variant="outlined"
+                          size="small"
+                          value={location}
+                          onChange={(e) => {
+                            setLocation(e.target.value);
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
+                    <Grid item xs={2}>
+                      <FormControlLabel
+                        value="art"
+                        control={<Radio />}
+                        label="Artwork"
+                      />
+                    </Grid>
+                    <Grid item xs={10}>
+                      {locationType === "art" ? (
+                        <TextField
+                          fullWidth
+                          id="artLocation"
+                          label="Artwork name"
+                          variant="outlined"
+                          size="small"
+                          value={location}
+                          onChange={(e) => {
+                            setLocation(e.target.value);
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
+                    <Grid item xs={2}>
+                      <FormControlLabel
+                        value="other"
+                        control={<Radio />}
+                        label="Other"
+                      />
+                    </Grid>
+                    <Grid item xs={10}>
+                      {locationType === "other" ? (
+                        <TextField
+                          fullWidth
+                          id="otherLocation"
+                          label="Detailed location"
+                          variant="outlined"
+                          size="small"
+                          value={location}
+                          onChange={(e) => {
+                            setLocation(e.target.value);
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
+                  </Grid>
+                </RadioGroup>
+              </FormControl>
             </CardContent>
           </Card>
         </DialogContent>
@@ -432,7 +500,7 @@ export const EventDialog = ({
   const [start, setStart] = useState({ h: 12, m: 0 });
   const [end, setEnd] = useState({ h: 12, m: 0 });
   const [rawid, setRawId] = useState(0);
-  const [atCamp, setAtCamp] = useState(true);
+  const [locationType, setLocationType] = useState("other");
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
   const [global, setGlobal] = useState(false);
@@ -448,8 +516,8 @@ export const EventDialog = ({
       setStart(event.start);
       setEnd(event.end);
       setRawId(event.id);
-      setAtCamp(!!event.atCamp);
       setLocation(event.location ?? "");
+      setLocationType(event.locationType ?? "other");
       setType(event.type ?? "othr");
       setGlobal(!!event.global);
       setEventError(event.eventError);
@@ -474,8 +542,8 @@ export const EventDialog = ({
       start: start,
       end: end,
       id: rawid,
-      atCamp: atCamp,
       location: location,
+      locationType: locationType,
       type: type,
       newEvent: false,
     });
@@ -501,10 +569,10 @@ export const EventDialog = ({
         setStart={setStart}
         end={end}
         setEnd={setEnd}
-        atCamp={atCamp}
-        setAtCamp={setAtCamp}
         location={location}
         setLocation={setLocation}
+        locationType={locationType}
+        setLocationType={setLocationType}
         type={type}
         setType={setType}
         close={handleClose}
@@ -520,8 +588,8 @@ export const EventDialog = ({
         end={end}
         description={description}
         title={title}
-        atCamp={atCamp}
         location={location}
+        locationType={locationType}
         type={type}
         global={global}
         eventError={eventError}
