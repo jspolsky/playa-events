@@ -43,7 +43,7 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
 
   // possible event durations in minutes
   let eventDurations = [0, 15, 30, 45];
-  for (let dx = 60; dx < 24 * 60; dx += 30) {
+  for (let dx = 60; dx <= 12 * 60; dx += 30) {
     eventDurations.push(dx);
   }
 
