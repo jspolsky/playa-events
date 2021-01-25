@@ -316,7 +316,7 @@ const EventDialogEditing = ({
           <Card style={{ marginBottom: "1rem" }}>
             <CardContent>
               <FormLabel component="legend">
-                What days does this event occur?
+                When does this event occur?
               </FormLabel>{" "}
               <Paper variant="outlined">
                 {" "}

@@ -71,6 +71,7 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd, setDirty }) => {
 
   return (
     <Grid container direction="row" justify="flex-start" alignItems="center">
+      <span>From:</span>
       <Tooltip
         title="Invalid time"
         arrow
@@ -82,7 +83,7 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd, setDirty }) => {
           freeSolo={true}
           disableClearable={true}
           size="small"
-          style={{ width: "8rem", marginRight: "0.5rem" }}
+          style={{ width: "8rem", marginRight: "0.5rem", marginLeft: "0.5rem" }}
           options={startTimes}
           inputValue={startInput}
           onInputChange={(event, newInputValue) => {
