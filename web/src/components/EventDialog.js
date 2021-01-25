@@ -201,18 +201,18 @@ const EventDialogStatic = ({
           <strong>{title}</strong>
         </div>
         <div style={{ marginBottom: "2rem" }}>
-          {url && validateURL(url) && (
-            <div>
-              <a target="_blank" rel="noreferrer" href={url}>
-                {url}
-              </a>
-            </div>
-          )}
           {eventType.emoji} {eventType.full}{" "}
         </div>
         <EventDialogWhen days={days} start={start} end={end} />
         <br></br>
         <LineSplitter variant="body1">{description}</LineSplitter>
+        {url && validateURL(url) && (
+          <div>
+            <a target="_blank" rel="noreferrer" href={url}>
+              {url}
+            </a>
+          </div>
+        )}
         <br></br>
         <br></br>
         <strong>Location:</strong>
