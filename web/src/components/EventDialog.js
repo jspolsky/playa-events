@@ -266,6 +266,8 @@ const EventDialogEditing = ({
   close,
   save,
 }) => {
+  const [dirty, setDirty] = useState(false);
+
   const handleCheckbox = (e) => {
     var newDays = [];
 
@@ -278,13 +280,24 @@ const EventDialogEditing = ({
     }
 
     setDays(newDays);
+    setDirty(true);
   };
 
   return (
-    <Dialog open={show} onClose={close} fullWidth maxWidth="md">
+    <Dialog
+      open={show}
+      onClose={close}
+      fullWidth
+      maxWidth="md"
+      disableBackdropClick
+      onBackdropClick={() => {
+        if (!dirty) close();
+      }}
+    >
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          setDirty(false);
           save();
         }}
       >
@@ -298,6 +311,7 @@ const EventDialogEditing = ({
             setDescription={setDescription}
             url={url}
             setUrl={setUrl}
+            setDirty={setDirty}
           />
           <Card style={{ marginBottom: "1rem" }}>
             <CardContent>
@@ -340,6 +354,7 @@ const EventDialogEditing = ({
                 setStart={setStart}
                 end={end}
                 setEnd={setEnd}
+                setDirty={setDirty}
               />{" "}
             </CardContent>
           </Card>
@@ -348,6 +363,7 @@ const EventDialogEditing = ({
             setLocation={setLocation}
             locationType={locationType}
             setLocationType={setLocationType}
+            setDirty={setDirty}
           />
         </DialogContent>
 

@@ -25,7 +25,7 @@ const ParseTime = (s) => {
 // h is in 24 hour format, so {h:14, m:0} is 2pm
 // if end.h < start.h, the event goes past midnight.
 
-export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
+export const TimeSpanEditor = ({ start, setStart, end, setEnd, setDirty }) => {
   const [startInput, setStartInput] = useState(FormatTime(start));
   const [startValue, setStartValue] = useState(FormatTime(start));
   const [startIsValid, setStartIsValid] = useState(true);
@@ -106,8 +106,10 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
                 (24 * 60);
               const endMinutes = parsed.h * 60 + parsed.m + dxMinutes;
               setStart(parsed);
+              setDirty(true);
               const newEnd = { h: (endMinutes / 60) % 24, m: endMinutes % 60 };
               setEnd(newEnd);
+              setDirty(true);
               setEndValue(FormatTime(newEnd));
               setEndInput(FormatTime(newEnd));
             } else {
@@ -157,6 +159,7 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd }) => {
             if (parsed) {
               setEndInput(FormatTime(parsed));
               setEnd(parsed);
+              setDirty(true);
             } else {
               // you can't type
               // restore original end time

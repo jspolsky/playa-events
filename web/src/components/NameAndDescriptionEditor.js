@@ -20,6 +20,7 @@ export const NameAndDescriptionEditor = ({
   setDescription,
   url,
   setUrl,
+  setDirty,
 }) => {
   return (
     <Card style={{ marginBottom: "1rem" }}>
@@ -34,6 +35,7 @@ export const NameAndDescriptionEditor = ({
           onFocus={(e) => e.currentTarget.select()}
           onChange={(e) => {
             setTitle(e.target.value);
+            setDirty(true);
           }}
         ></TextField>
 
@@ -47,6 +49,7 @@ export const NameAndDescriptionEditor = ({
                 value={type}
                 onChange={(x) => {
                   setType(x.target.value);
+                  setDirty(true);
                 }}
                 label="Type"
                 style={{ minWidth: "8rem" }}
@@ -72,6 +75,7 @@ export const NameAndDescriptionEditor = ({
               onFocus={(e) => e.currentTarget.select()}
               onChange={(e) => {
                 setUrl(e.target.value);
+                setDirty(true);
               }}
             ></TextField>
           </Grid>
@@ -85,6 +89,7 @@ export const NameAndDescriptionEditor = ({
           value={description}
           onChange={(e) => {
             setDescription(e.target.value);
+            setDirty(true);
           }}
           style={{ marginTop: "2rem" }}
         />

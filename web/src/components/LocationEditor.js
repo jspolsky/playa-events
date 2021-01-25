@@ -16,6 +16,7 @@ export const LocationEditor = ({
   setLocation,
   locationType,
   setLocationType,
+  setDirty,
 }) => {
   const options = [
     // [codename, label for radio button, prompt for text editor]
@@ -36,6 +37,7 @@ export const LocationEditor = ({
             onChange={(e) => {
               setLocationType(e.target.value);
               setLocation("");
+              setDirty(true);
             }}
           >
             <Grid container spacing={0}>
@@ -60,6 +62,7 @@ export const LocationEditor = ({
                           value={location}
                           onChange={(e) => {
                             setLocation(e.target.value);
+                            setDirty(true);
                           }}
                         />
                       ) : (
