@@ -4,22 +4,7 @@ import Draggable from "react-draggable";
 
 import moment from "moment";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
-import Checkbox from "@material-ui/core/Checkbox";
-import Paper from "@material-ui/core/Paper";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
 import Alert from "@material-ui/lab/Alert";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormLabel from "@material-ui/core/FormLabel";
-import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -30,12 +15,27 @@ import { TimeSpanEditor, FormatTime } from "./TimeSpanEditor.js";
 import { ConfirmDialog } from "./ConfirmDialog.js";
 import { LineSplitter } from "./LineSplitter.js";
 import {
+  Button,
   Card,
   CardContent,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
   FormControlLabel,
+  FormGroup,
+  FormLabel,
   Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
   Radio,
   RadioGroup,
+  Select,
+  TextField,
 } from "@material-ui/core";
 
 import bannerPrty from "../assets/banner-prty.jpg";
