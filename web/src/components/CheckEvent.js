@@ -5,7 +5,7 @@
  * @return {(string | false)} false if event is OK, otherwise a string error message
  */
 export const CheckEvent = (e) => {
-  let { start, end, days, title, description } = e;
+  let { start, end, days, title, description, locationType } = e;
 
   if (end.h < start.h) {
     // event wraps past midnight
@@ -19,6 +19,12 @@ export const CheckEvent = (e) => {
 
   if (days.includes(8) && end.h * 60 + end.m > 18 * 60) {
     return "Events on final day cannot go past 6:00pm";
+  }
+
+  if (locationType === "art") {
+    if (durationInMinutes > 3 * 60) {
+      return "Events located at an artwork cannot be longer than 3 hours";
+    }
   }
 
   if (durationInMinutes > 12 * 60) {
