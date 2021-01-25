@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 
 import { LocationEditor } from "./LocationEditor.js";
 
-test("LocationEditor", () => {
+test.each(["camp", "art", "other"])("LocationEditor %s", (x) => {
   const fn = () => {
     return null;
   };
@@ -11,7 +11,7 @@ test("LocationEditor", () => {
   const tree = render(
     <LocationEditor
       location={"Turtles"}
-      locationType={"camp"}
+      locationType={x}
       setLocation={fn}
       setLocationType={fn}
     />
