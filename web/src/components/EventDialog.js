@@ -27,11 +27,9 @@ import {
   DialogTitle,
   FormControlLabel,
   FormGroup,
-  FormHelperText,
   FormLabel,
   IconButton,
   Paper,
-  Switch,
 } from "@material-ui/core";
 
 import bannerPrty from "../assets/banner-prty.jpg";
@@ -47,6 +45,7 @@ import bannerWork from "../assets/banner-work.jpg";
 import bannerOthr from "../assets/banner-othr.jpg";
 import { NameAndDescriptionEditor } from "./NameAndDescriptionEditor";
 import { validateURL } from "../validateUrl.js";
+import { PrintOptionsEditor } from "./PrintOptionsEditor";
 
 export const eventTypes = [
   { code: "prty", full: "Gathering/Party", emoji: "🥳", banner: bannerPrty },
@@ -253,6 +252,8 @@ const EventDialogEditing = ({
   setTitle,
   description,
   setDescription,
+  printDescription,
+  setPrintDescription,
   url,
   setUrl,
   start,
@@ -369,28 +370,14 @@ const EventDialogEditing = ({
             setLocationType={setLocationType}
             setDirty={setDirty}
           />
-          <Card>
-            <CardContent>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={submitForPrint}
-                    onChange={(e) => {
-                      setSubmitForPrint(e.target.checked);
-                      setDirty(true);
-                    }}
-                    name="submitForPrint"
-                    color="primary"
-                  />
-                }
-                label="Submit this event to printed WhatWhereWhen guide"
-              />
-              <FormHelperText>
-                Due to limited space, only a very small number of events can be
-                printed.
-              </FormHelperText>
-            </CardContent>
-          </Card>
+          <PrintOptionsEditor
+            submitForPrint={submitForPrint}
+            setSubmitForPrint={setSubmitForPrint}
+            printDescription={printDescription}
+            setPrintDescription={setPrintDescription}
+            description={description}
+            setDirty={setDirty}
+          />
         </DialogContent>
 
         <DialogActions>
@@ -417,6 +404,7 @@ export const EventDialog = ({
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [printDescription, setPrintDescription] = useState("");
   const [url, setUrl] = useState("");
   const [days, setDays] = useState([]);
   const [start, setStart] = useState({ h: 12, m: 0 });
@@ -435,6 +423,7 @@ export const EventDialog = ({
       // pull out editable data from event
       setTitle(event.title);
       setDescription(event.description);
+      setPrintDescription(event.printDescription ?? "");
       setUrl(event.url ?? "");
       setDays(event.days);
       setStart(event.start);
@@ -463,6 +452,7 @@ export const EventDialog = ({
     saveEvent({
       title: title,
       description: description,
+      printDescription: printDescription,
       url: url,
       days: days,
       start: start,
@@ -492,6 +482,8 @@ export const EventDialog = ({
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
+        printDescription={printDescription}
+        setPrintDescription={setPrintDescription}
         url={url}
         setUrl={setUrl}
         start={start}
