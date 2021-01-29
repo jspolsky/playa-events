@@ -230,22 +230,18 @@ function App() {
   };
 
   const formatEvent = (event, start, end, isSelected) => {
-    let bgColor = "#00203F";
+    let className = "standard-event";
+
     if (event.global) {
-      bgColor = "#E4DDCD";
+      className = "global-event";
     }
+
     if (event.eventError) {
-      bgColor = "#DC4156";
+      className = "error-event";
     }
 
     return {
-      style: {
-        backgroundColor: bgColor,
-        color: event.global ? "black" : "white",
-        fontSize: "0.8rem",
-        fontWeight: 500,
-        opacity: 0.7,
-      },
+      className: className,
     };
   };
 
@@ -313,6 +309,16 @@ function App() {
                 handleNewEvent={handleNewEvent}
               />
             );
+          },
+          agenda: {
+            event: ({ event }) => {
+              return (
+                <span>
+                  {!!event.eventError ? "⚠️ " : ""}
+                  {event.title}
+                </span>
+              );
+            },
           },
         }}
       />

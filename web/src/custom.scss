@@ -20,6 +20,39 @@
   cursor: pointer;
 }
 
+.rbc-time-view .standard-event {
+  background-color: rgb(0, 32, 63);
+  color: white;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.rbc-time-view .global-event {
+  background-color: rgb(228, 221, 205);
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.rbc-time-view .error-event {
+  background-color: rgb(255, 155, 169);
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.rbc-agenda-view .error-event .rbc-agenda-event-cell {
+  background-color: rgb(255, 155, 169);
+  color: black;
+}
+
+.rbc-agenda-view .global-event .rbc-agenda-event-cell {
+  background-color: rgb(228, 221, 205);
+  color: black;
+}
+
 // Hack to prevent all-day events:
 
 .rbc-allday-cell {
