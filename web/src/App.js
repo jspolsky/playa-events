@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
@@ -88,6 +88,16 @@ function App() {
   const [editing, setEditing] = useState(false);
   const [globalError, setGlobalError] = useState(false);
   const [dblClickTimer, setDblClickTimer] = useState(null);
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 700);
+
+  const updateMedia = () => {
+    setDesktop(window.innerWidth > 700);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
 
   const newEventTemplate = {
     title: "New event",
@@ -258,10 +268,12 @@ function App() {
       <DraggableCalendar
         localizer={localizer}
         defaultDate={firstDay}
-        defaultView={Views.WEEK}
+        views={{ agenda: true, week: BurnWeek }}
+        defaultView={isDesktop ? Views.WEEK : Views.AGENDA}
+        view={isDesktop ? Views.WEEK : Views.AGENDA}
+        onView={() => {}}
         events={CalEventsFromRawEvents(rawEvents)}
         style={{ height: "100vh" }}
-        views={{ agenda: true, week: BurnWeek }}
         formats={{
           timeGutterFormat: (date) => moment(date).format("ha"),
           dayFormat: (date) => moment(date).format("ddd, MMM D"),
@@ -292,7 +304,10 @@ function App() {
           },
           toolbar: (props) => {
             return (
-              <Header title={props.label} handleNewEvent={handleNewEvent} />
+              <Header
+                title={`Burn Week ${firstDay.getFullYear()}`}
+                handleNewEvent={handleNewEvent}
+              />
             );
           },
         }}
