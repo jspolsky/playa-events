@@ -277,6 +277,10 @@ function App() {
         formats={{
           timeGutterFormat: (date) => moment(date).format("ha"),
           dayFormat: (date) => moment(date).format("ddd, MMM D"),
+          agendaDateFormat: (date) => moment(date).format("ddd MMM D"),
+          agendaTimeFormat: (date) => moment(date).format("h:mma"),
+          agendaTimeRangeFormat: ({ start, end }) =>
+            moment(start).format("h:mma"),
           eventTimeRangeFormat: ({ start, end }) =>
             moment(start).format("h:mma"),
           eventTimeRangeStartFormat: ({ start, end }) =>
