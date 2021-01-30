@@ -313,10 +313,16 @@ function App() {
           agenda: {
             event: ({ event }) => {
               return (
-                <span>
+                <div
+                  className="event"
+                  onClick={() => drillDown(event)}
+                  onDoubleClick={() => {
+                    setEditing(!event.global);
+                  }}
+                >
                   {!!event.eventError ? "⚠️ " : ""}
                   {event.title}
-                </span>
+                </div>
               );
             },
           },

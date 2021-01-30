@@ -23,19 +23,6 @@
 .rbc-time-view .standard-event {
   background-color: rgb(0, 32, 63);
   color: white;
-  font-size: 0.8rem;
-  opacity: 0.7;
-}
-
-.rbc-time-view .global-event {
-  font-size: 0.8rem;
-  font-weight: 500;
-  opacity: 0.7;
-}
-
-.rbc-time-view .error-event {
-  font-size: 0.8rem;
-  font-weight: 500;
   opacity: 0.7;
 }
 
@@ -43,12 +30,35 @@
 .rbc-agenda-view .error-event .rbc-agenda-event-cell {
   background-color: rgb(255, 155, 169);
   color: black;
+  opacity: 0.7;
 }
 
 .rbc-time-view .global-event,
 .rbc-agenda-view .global-event .rbc-agenda-event-cell {
   background-color: rgb(228, 221, 205);
   color: black;
+  opacity: 0.7;
+}
+
+.rbc-time-view .standard-event,
+.rbc-time-view .global-event,
+.rbc-time-view .error-event,
+.rbc-agenda-view {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.rbc-agenda-view td.rbc-agenda-event-cell .event {
+  padding: 0.3rem 0.7rem;
+}
+
+.rbc-agenda-view td.rbc-agenda-event-cell .event {
+  font-weight: 700;
+}
+.rbc-agenda-view td.rbc-agenda-event-cell .event:hover {
+  background-color: lightgrey;
+  border-radius: 5rem;
+  cursor: pointer;
 }
 
 // Hack to prevent all-day events:
