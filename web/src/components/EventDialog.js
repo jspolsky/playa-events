@@ -472,7 +472,7 @@ export const EventDialog = ({
     close();
   };
 
-  if (editing) {
+  if (editing && !global) {
     return (
       <EventDialogEditing
         show={show}

@@ -84,7 +84,7 @@ export const CalEventsFromRawEvents = (rawEvents) => {
 function App() {
   const [rawEvents, setRawEvents] = useState(initialRawEvents);
   const [showPopup, setShowPopup] = useState(false);
-  const [eventForPopup, setEventForPopup] = useState({});
+  const [eventForPopup, setEventForPopup] = useState(-1);
   const [editing, setEditing] = useState(false);
   const [globalError, setGlobalError] = useState(false);
   const [dblClickTimer, setDblClickTimer] = useState(null);
@@ -121,7 +121,7 @@ function App() {
     };
 
     setRawEvents([...rawEvents, newEvent]);
-    setEventForPopup(newEvent);
+    setEventForPopup(newEvent.id);
     setShowPopup(true);
     setEditing(true);
   };
@@ -136,7 +136,7 @@ function App() {
     };
 
     setRawEvents([...rawEvents, newEvent]);
-    setEventForPopup(newEvent);
+    setEventForPopup(newEvent.id);
     setShowPopup(true);
     setEditing(true);
   };
@@ -145,13 +145,14 @@ function App() {
     // single click - show the event in static mode
     // double click - show the event for editing
 
-    setEventForPopup(rawEvents.find((e) => e.id === event.id));
+    setEventForPopup(event.id);
+
     setEditing(false);
 
     if (dblClickTimer) {
       clearTimeout(dblClickTimer);
       setDblClickTimer(null);
-      setEditing(!eventForPopup.global); // but you can never edit global events
+      setEditing(true);
     }
 
     setDblClickTimer(
@@ -255,7 +256,7 @@ function App() {
       <EventDialog
         show={showPopup}
         close={closeDrillDown}
-        event={eventForPopup}
+        event={rawEvents.find((e) => e.id === eventForPopup)}
         saveEvent={saveEvent}
         deleteEvent={deleteEvent}
         editing={editing}
