@@ -44,14 +44,14 @@ export const LocationEditor = ({
               {options.map((x) => {
                 return (
                   <React.Fragment key={x[0]}>
-                    <Grid item xs={2}>
+                    <Grid item xs={12} sm={4}>
                       <FormControlLabel
                         value={x[0]}
                         control={<Radio color="primary" />}
                         label={x[1]}
                       />
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={12} sm={8}>
                       {locationType === x[0] ? (
                         <TextField
                           fullWidth

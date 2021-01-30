@@ -70,107 +70,116 @@ export const TimeSpanEditor = ({ start, setStart, end, setEnd, setDirty }) => {
   };
 
   return (
-    <Grid container direction="row" justify="flex-start" alignItems="center">
-      <span>From:</span>
-      <Tooltip
-        title="Invalid time"
-        arrow
-        placement="top-start"
-        open={!startIsValid}
-      >
-        <Autocomplete
-          id="starttime"
-          freeSolo={true}
-          disableClearable={true}
-          size="small"
-          style={{ width: "8rem", marginRight: "0.5rem", marginLeft: "0.5rem" }}
-          options={startTimes}
-          inputValue={startInput}
-          onInputChange={(event, newInputValue) => {
-            const parsed = ParseTime(newInputValue);
-            setStartIsValid(!!parsed);
-            setStartInput(newInputValue);
-          }}
-          value={startValue}
-          onChange={(event, newValue) => {
-            setStartValue(newValue);
-          }}
-          onBlur={() => {
-            const parsed = ParseTime(startInput);
-            if (parsed) {
-              setStartInput(FormatTime(parsed));
-              // successfully setting the start time
-              // always bumps the end time to keep
-              // the same duration
-              const dxMinutes =
-                (24 * 60 + (end.h * 60 + end.m) - (start.h * 60 + start.m)) %
-                (24 * 60);
-              const endMinutes = parsed.h * 60 + parsed.m + dxMinutes;
-              setStart(parsed);
-              setDirty(true);
-              const newEnd = { h: (endMinutes / 60) % 24, m: endMinutes % 60 };
-              setEnd(newEnd);
-              setDirty(true);
-              setEndValue(FormatTime(newEnd));
-              setEndInput(FormatTime(newEnd));
-            } else {
-              // you can't type
-              // restore original start time
-              setStartInput(FormatTime(start));
-              setStartIsValid(true);
-            }
-          }}
-          renderInput={(params) => <TextField {...params} variant="outlined" />}
-        />
-      </Tooltip>
-      <span>to</span>
-      <Tooltip
-        title="Invalid time"
-        arrow
-        placement="top-start"
-        open={!endIsValid}
-      >
-        <Autocomplete
-          id="endtime"
-          freeSolo={true}
-          disableClearable={true}
-          size="small"
-          style={{ width: "8rem", marginLeft: "0.5rem" }}
-          PopperComponent={WidePopper}
-          options={endOptions}
-          renderOption={(option) => {
-            return option.render;
-          }}
-          getOptionLabel={(option) => {
-            if (option.label) return option.label;
-            else return option;
-          }}
-          inputValue={endInput}
-          onInputChange={(event, newInputValue) => {
-            const parsed = ParseTime(newInputValue);
-            setEndIsValid(!!parsed);
-            setEndInput(newInputValue);
-          }}
-          value={endValue}
-          onChange={(event, newValue) => {
-            setEndValue(newValue);
-          }}
-          onBlur={() => {
-            const parsed = ParseTime(endInput);
-            if (parsed) {
-              setEndInput(FormatTime(parsed));
-              setEnd(parsed);
-              setDirty(true);
-            } else {
-              // you can't type
-              // restore original end time
-              setEndInput(FormatTime(end));
-              setEndIsValid(true);
-            }
-          }}
-          renderInput={(params) => <TextField {...params} variant="outlined" />}
-        />
-      </Tooltip>
+    <Grid container spacing={2}>
+      <Grid item xs={6} sm={4} md={3}>
+        <span>From:</span>
+        <Tooltip
+          title="Invalid time"
+          arrow
+          placement="top-start"
+          open={!startIsValid}
+        >
+          <Autocomplete
+            id="starttime"
+            freeSolo={true}
+            disableClearable={true}
+            size="small"
+            options={startTimes}
+            inputValue={startInput}
+            onInputChange={(event, newInputValue) => {
+              const parsed = ParseTime(newInputValue);
+              setStartIsValid(!!parsed);
+              setStartInput(newInputValue);
+            }}
+            value={startValue}
+            onChange={(event, newValue) => {
+              setStartValue(newValue);
+            }}
+            onBlur={() => {
+              const parsed = ParseTime(startInput);
+              if (parsed) {
+                setStartInput(FormatTime(parsed));
+                // successfully setting the start time
+                // always bumps the end time to keep
+                // the same duration
+                const dxMinutes =
+                  (24 * 60 + (end.h * 60 + end.m) - (start.h * 60 + start.m)) %
+                  (24 * 60);
+                const endMinutes = parsed.h * 60 + parsed.m + dxMinutes;
+                setStart(parsed);
+                setDirty(true);
+                const newEnd = {
+                  h: (endMinutes / 60) % 24,
+                  m: endMinutes % 60,
+                };
+                setEnd(newEnd);
+                setDirty(true);
+                setEndValue(FormatTime(newEnd));
+                setEndInput(FormatTime(newEnd));
+              } else {
+                // you can't type
+                // restore original start time
+                setStartInput(FormatTime(start));
+                setStartIsValid(true);
+              }
+            }}
+            renderInput={(params) => (
+              <TextField {...params} variant="outlined" />
+            )}
+          />
+        </Tooltip>
+      </Grid>
+      <Grid item xs={6} sm={4} md={3}>
+        <span>To:</span>
+        <Tooltip
+          title="Invalid time"
+          arrow
+          placement="top-start"
+          open={!endIsValid}
+        >
+          <Autocomplete
+            id="endtime"
+            freeSolo={true}
+            disableClearable={true}
+            size="small"
+            PopperComponent={WidePopper}
+            options={endOptions}
+            renderOption={(option) => {
+              return option.render;
+            }}
+            getOptionLabel={(option) => {
+              if (option.label) return option.label;
+              else return option;
+            }}
+            inputValue={endInput}
+            onInputChange={(event, newInputValue) => {
+              const parsed = ParseTime(newInputValue);
+              setEndIsValid(!!parsed);
+              setEndInput(newInputValue);
+            }}
+            value={endValue}
+            onChange={(event, newValue) => {
+              setEndValue(newValue);
+            }}
+            onBlur={() => {
+              const parsed = ParseTime(endInput);
+              if (parsed) {
+                setEndInput(FormatTime(parsed));
+                setEnd(parsed);
+                setDirty(true);
+              } else {
+                // you can't type
+                // restore original end time
+                setEndInput(FormatTime(end));
+                setEndIsValid(true);
+              }
+            }}
+            renderInput={(params) => (
+              <TextField {...params} variant="outlined" />
+            )}
+          />
+        </Tooltip>
+      </Grid>
     </Grid>
   );
 };

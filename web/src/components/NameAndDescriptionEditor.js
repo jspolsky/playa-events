@@ -25,22 +25,23 @@ export const NameAndDescriptionEditor = ({
   return (
     <Card style={{ marginBottom: "1rem" }}>
       <CardContent>
-        <TextField
-          fullWidth
-          autoFocus
-          label="Event name"
-          variant="outlined"
-          size="small"
-          value={title}
-          onFocus={(e) => e.currentTarget.select()}
-          onChange={(e) => {
-            setTitle(e.target.value);
-            setDirty(true);
-          }}
-        ></TextField>
-
-        <Grid container spacing={0} style={{ marginTop: "2rem" }}>
-          <Grid item xs={3}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              autoFocus
+              label="Event name"
+              variant="outlined"
+              size="small"
+              value={title}
+              onFocus={(e) => e.currentTarget.select()}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setDirty(true);
+              }}
+            ></TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
             <FormControl variant="outlined" size="small">
               <InputLabel id="type-label">Type</InputLabel>
               <Select
@@ -52,7 +53,6 @@ export const NameAndDescriptionEditor = ({
                   setDirty(true);
                 }}
                 label="Type"
-                style={{ minWidth: "8rem" }}
               >
                 {eventTypes.map((et) => {
                   return (
@@ -65,7 +65,7 @@ export const NameAndDescriptionEditor = ({
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} sm={6} md={9}>
             <TextField
               fullWidth
               label="URL (optional)"
@@ -79,20 +79,20 @@ export const NameAndDescriptionEditor = ({
               }}
             ></TextField>
           </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              label="Description"
+              variant="outlined"
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setDirty(true);
+              }}
+            />
+          </Grid>
         </Grid>
-
-        <TextField
-          fullWidth
-          multiline
-          label="Description"
-          variant="outlined"
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-            setDirty(true);
-          }}
-          style={{ marginTop: "2rem" }}
-        />
       </CardContent>
     </Card>
   );
