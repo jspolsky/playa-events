@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/events/static/css/main.8be4e1aa.chunk.css",
+    "main.js": "/events/static/js/main.a526977c.chunk.js",
+    "main.js.map": "/events/static/js/main.a526977c.chunk.js.map",
+    "runtime-main.js": "/events/static/js/runtime-main.804e3fc9.js",
+    "runtime-main.js.map": "/events/static/js/runtime-main.804e3fc9.js.map",
+    "static/css/2.4ae3e1c2.chunk.css": "/events/static/css/2.4ae3e1c2.chunk.css",
+    "static/js/2.6e8347a2.chunk.js": "/events/static/js/2.6e8347a2.chunk.js",
+    "static/js/2.6e8347a2.chunk.js.map": "/events/static/js/2.6e8347a2.chunk.js.map",
+    "static/js/3.5b1d111a.chunk.js": "/events/static/js/3.5b1d111a.chunk.js",
+    "static/js/3.5b1d111a.chunk.js.map": "/events/static/js/3.5b1d111a.chunk.js.map",
+    "index.html": "/events/index.html",
+    "static/css/2.4ae3e1c2.chunk.css.map": "/events/static/css/2.4ae3e1c2.chunk.css.map",
+    "static/css/main.8be4e1aa.chunk.css.map": "/events/static/css/main.8be4e1aa.chunk.css.map",
+    "static/js/2.6e8347a2.chunk.js.LICENSE.txt": "/events/static/js/2.6e8347a2.chunk.js.LICENSE.txt",
+    "static/media/banner-adlt.b5a0e240.jpg": "/events/static/media/banner-adlt.b5a0e240.jpg",
+    "static/media/banner-care.f6952b26.jpg": "/events/static/media/banner-care.f6952b26.jpg",
+    "static/media/banner-fire.ef19701b.jpg": "/events/static/media/banner-fire.ef19701b.jpg",
+    "static/media/banner-food.a1dfabf2.jpg": "/events/static/media/banner-food.a1dfabf2.jpg",
+    "static/media/banner-game.90020586.jpg": "/events/static/media/banner-game.90020586.jpg",
+    "static/media/banner-kid.37f68789.jpg": "/events/static/media/banner-kid.37f68789.jpg",
+    "static/media/banner-othr.58479925.jpg": "/events/static/media/banner-othr.58479925.jpg",
+    "static/media/banner-para.cec68e25.jpg": "/events/static/media/banner-para.cec68e25.jpg",
+    "static/media/banner-perf.0fd8c4e3.jpg": "/events/static/media/banner-perf.0fd8c4e3.jpg",
+    "static/media/banner-prty.2a342910.jpg": "/events/static/media/banner-prty.2a342910.jpg",
+    "static/media/banner-work.4e88b097.jpg": "/events/static/media/banner-work.4e88b097.jpg",
+    "static/media/header.2acf46f1.jpg": "/events/static/media/header.2acf46f1.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.804e3fc9.js",
+    "static/css/2.4ae3e1c2.chunk.css",
+    "static/js/2.6e8347a2.chunk.js",
+    "static/css/main.8be4e1aa.chunk.css",
+    "static/js/main.a526977c.chunk.js"
+  ]
+}
