@@ -88,7 +88,7 @@ function App() {
   const [editing, setEditing] = useState(false);
   const [globalError, setGlobalError] = useState(false);
   const [dblClickTimer, setDblClickTimer] = useState(null);
-  const [isDesktop, setDesktop] = useState(window.innerWidth > 700);
+  const [desktop, setDesktop] = useState(window.innerWidth > 700);
 
   const updateMedia = () => {
     setDesktop(window.innerWidth > 700);
@@ -255,6 +255,7 @@ function App() {
       </Snackbar>
       <EventDialog
         show={showPopup}
+        desktop={desktop}
         close={closeDrillDown}
         event={rawEvents.find((e) => e.id === eventForPopup)}
         saveEvent={saveEvent}
@@ -266,8 +267,8 @@ function App() {
         localizer={localizer}
         defaultDate={firstDay}
         views={{ agenda: true, week: BurnWeek }}
-        defaultView={isDesktop ? Views.WEEK : Views.AGENDA}
-        view={isDesktop ? Views.WEEK : Views.AGENDA}
+        defaultView={desktop ? Views.WEEK : Views.AGENDA}
+        view={desktop ? Views.WEEK : Views.AGENDA}
         onView={() => {}}
         events={CalEventsFromRawEvents(rawEvents)}
         style={{ height: "100vh" }}

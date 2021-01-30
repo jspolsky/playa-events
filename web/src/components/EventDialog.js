@@ -17,6 +17,7 @@ import { LineSplitter } from "./LineSplitter.js";
 import { LocationEditor } from "./LocationEditor";
 
 import {
+  AppBar,
   Button,
   Card,
   CardContent,
@@ -30,6 +31,8 @@ import {
   FormLabel,
   IconButton,
   Paper,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
 
 import bannerPrty from "../assets/banner-prty.jpg";
@@ -246,6 +249,7 @@ const EventDialogStatic = ({
 
 const EventDialogEditing = ({
   show,
+  desktop,
   days,
   setDays,
   title,
@@ -291,6 +295,7 @@ const EventDialogEditing = ({
   return (
     <Dialog
       open={show}
+      fullScreen={!desktop}
       onClose={close}
       fullWidth
       maxWidth="md"
@@ -299,6 +304,34 @@ const EventDialogEditing = ({
         if (!dirty) close();
       }}
     >
+      {!desktop && (
+        <AppBar style={{ position: "relative" }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={close}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" style={{ flex: 1 }}>
+              Event
+            </Typography>
+            <Button
+              autoFocus
+              color="inherit"
+              onClick={() => {
+                setDirty(false);
+                save();
+              }}
+            >
+              save
+            </Button>
+          </Toolbar>
+        </AppBar>
+      )}
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -395,6 +428,7 @@ const EventDialogEditing = ({
 
 export const EventDialog = ({
   show,
+  desktop,
   close,
   event,
   saveEvent,
@@ -476,6 +510,7 @@ export const EventDialog = ({
     return (
       <EventDialogEditing
         show={show}
+        desktop={desktop}
         days={days}
         setDays={setDays}
         title={title}
