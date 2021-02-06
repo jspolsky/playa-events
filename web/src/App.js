@@ -248,7 +248,7 @@ function App() {
 
   return (
     <div className="App">
-      <Snackbar open={globalError !== false}>
+      <Snackbar open={globalError !== false && !showPopup}>
         <Alert severity="error" elevation={6} variant="filled">
           {globalError}
         </Alert>
