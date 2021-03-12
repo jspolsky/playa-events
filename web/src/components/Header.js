@@ -1,5 +1,4 @@
 import React from "react";
-import banner from "../assets/header.jpg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -56,12 +55,8 @@ const ButtonAppBar = ({ title, handleNewEvent }) => {
 };
 
 export const Header = ({ title, handleNewEvent }) => {
-  // Image is from https://gallery.burningman.org/asset/e18ccfb6-4558-427e-8118-493bffe148e5?i=2&q=playa+info
-  // Photo by Jini Sachse, 2019
-
   return (
     <>
-      <img className="img-fluid w-100" src={banner} alt="Playa Info" />
       <ButtonAppBar title={title} handleNewEvent={handleNewEvent} />
     </>
   );
